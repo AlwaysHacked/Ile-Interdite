@@ -1,3 +1,5 @@
+package src;
+
 public class Case {
 
     public enum State {SEC, INONDE, SUBMERGEE};
