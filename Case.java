@@ -10,8 +10,15 @@ public class Case {
     private Case gauche;
     private Case droit;
 
+    Case(boolean b){
+        if (b)
+            etat = State.SEC;
+        else
+            etat = State.SUBMERGEE;
+    }
+
     Case(){
-        etat = State.SEC;
+        new Case(true);
     }
 
     public void setCases(Case haut, Case bas, Case g, Case d){
