@@ -3,6 +3,6 @@ public class Cle extends Item{
 
     @Override
     public String toString() {
-        return super.toString();
+        return "Clé " + super.getType().toString();
     }
 }
