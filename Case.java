@@ -1,9 +1,19 @@
 public class Case {
 
-    public enum State {SEC, INONDE, SUBMERGEE};
+    public enum State {SEC, INONDE, SUBMERGEE;
+
+        @Override
+        public String toString() {
+            switch (this) {
+                case SEC: return "SEC";
+                case INONDE: return "INO";
+                case SUBMERGEE: return "SUB";
+                default: return "";
+            }
+        }
+    };
 
     private State etat;
-    private Item item;
 
     private Case haut;
     private Case bas;
@@ -32,15 +42,12 @@ public class Case {
         return etat;
     }
 
-    public Item getItem() {
-        return item;
-    }
-
     public void setEtat(State etat) {
         this.etat = etat;
     }
 
-    public void setItem(Item item) {
-        this.item = item;
+    @Override
+    public String toString() {
+        return etat.toString();
     }
 }
