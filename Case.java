@@ -46,6 +46,23 @@ public class Case {
         this.etat = etat;
     }
 
+    public Case[] getVoisins(){
+        return new Case[] {this.haut, this.bas, this.gauche, this.droit};
+    }
+
+    public Case getVoisinH(){
+        return this.haut;
+    }
+    public Case getVoisinB(){
+        return this.bas;
+    }
+    public Case getVoisinG(){
+        return this.gauche;
+    }
+    public Case getVoisinD(){
+        return this.droit;
+    }
+
     @Override
     public String toString() {
         return etat.toString();

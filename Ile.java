@@ -49,5 +49,37 @@ public class Ile {
         }
     }
 
+    public Case getCase(int x, int y){
+        return Grille[x][y];
+    }
 
+    public int getSizeGrille(){ return s;}
+
+    public Case getH(int x, int y){
+        if
+            return null;
+        else
+            return
+    }
+
+    public Case getB(int x, int y){
+        if
+            return null;
+        else
+            return
+    }
+
+    public Case getG(int x, int y){
+        if
+            return null;
+        else
+            return
+    }
+
+    public Case getD(int x, int y){
+        if
+            return null;
+        else
+            return
+    }
 }
