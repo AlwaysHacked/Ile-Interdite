@@ -1,5 +1,7 @@
 package projet;
 
+import java.util.ArrayList;
+
 public class Ile {
 //    size is always >2, otherwise it's not interesting
 //    sizeGrille, Serge removed `final` for instance to be able to write 2 constructors
@@ -7,10 +9,7 @@ public class Ile {
     private final int defaultGrilleSize = 10;
     private Case[][] Grille;
 
-    private final Artefact eau = new Artefact(Item.Type.EAU);
-    private final Artefact terre = new Artefact(Item.Type.TERRE);
-    private final Artefact feu = new Artefact(Item.Type.FEU);
-    private final Artefact air = new Artefact(Item.Type.AIR);
+    private ArrayList<Item> stock = new ArrayList<>();
 
     public Ile(){
         new Ile(this.defaultGrilleSize);
@@ -22,6 +21,14 @@ public class Ile {
         this.Grille = new Case[s][s];
         initGrille();
         caseLinking();
+        makeStock();
+    }
+
+    private void makeStock() {
+        stock.add(new Artefact(Item.Type.EAU));
+        stock.add(new Artefact(Item.Type.TERRE));
+        stock.add(new Artefact(Item.Type.FEU));
+        stock.add(new Artefact(Item.Type.AIR));
     }
 
     private void caseLinking(){
@@ -67,6 +74,15 @@ public class Ile {
 
     public Case getCase(int x, int y){
         return Grille[x][y];
+    }
+
+    public Item collect(Item.Type type){
+        for (Item artefact:stock)
+            if (artefact.type == type) {
+                stock.remove(artefact);
+                return artefact;
+            }
+        return null;
     }
 
     public int getSizeGrille(){

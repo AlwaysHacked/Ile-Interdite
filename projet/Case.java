@@ -15,6 +15,7 @@ public class Case {
     };
 
     protected State etat;
+    protected Item.Type type = null;
 
     private Case haut;
     private Case bas;
@@ -40,9 +41,16 @@ public class Case {
 
         return this;
     }
+    public Item.Type getType() { return type;}
+
+    public void setType(Item.Type type) { this.type = type;}
 
     public State getEtat() {
         return etat;
+    }
+
+    public void setEtat(State etat) {
+        this.etat = etat;
     }
 
     public boolean canCross(){
@@ -51,10 +59,6 @@ public class Case {
 
     public boolean canDry(){
         return this.etat == State.INONDE;
-    }
-
-    public void setEtat(State etat) {
-        this.etat = etat;
     }
 
     public Case[] getVoisins(){
