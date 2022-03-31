@@ -1,3 +1,5 @@
+package projet;
+
 public class Case {
 
     public enum State {SEC, INONDE, SUBMERGEE;
@@ -31,15 +33,25 @@ public class Case {
         new Case(true);
     }
 
-    public void setCases(Case haut, Case bas, Case g, Case d){
+    public Case setCases(Case haut, Case bas, Case g, Case d){
         this.haut = haut;
         this.bas = bas;
         this.gauche = g;
         this.droit = d;
+
+        return this;
     }
 
     public State getEtat() {
         return etat;
+    }
+
+    public boolean canCross(){
+        return !(this.etat == State.SUBMERGEE);
+    }
+
+    public boolean canDry(){
+        return this.etat == State.INONDE;
     }
 
     public void setEtat(State etat) {

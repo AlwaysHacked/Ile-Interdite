@@ -1,3 +1,5 @@
+package projet;
+
 abstract class Item {
 
     public enum Type{EAU,TERRE,FEU,AIR};
