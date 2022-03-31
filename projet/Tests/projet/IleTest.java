@@ -1,7 +1,9 @@
 package projet;
 
+import org.junit.Test;
+
 import static org.junit.Assert.*;
-import org.testng.annotations.Test;
+//import org.testng.annotations.Test;
 
 public class IleTest {
     int s = 10;

@@ -6,16 +6,15 @@ public class Case {
 
         @Override
         public String toString() {
-            switch (this) {
-                case SEC: return "SEC";
-                case INONDE: return "INO";
-                case SUBMERGEE: return "SUB";
-                default: return "";
-            }
+            return switch (this) {
+                case SEC -> "SEC";
+                case INONDE -> "INO";
+                case SUBMERGEE -> "SUB";
+            };
         }
     };
 
-    private State etat;
+    protected State etat;
 
     private Case haut;
     private Case bas;
