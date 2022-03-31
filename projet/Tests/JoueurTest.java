@@ -23,20 +23,20 @@ public class JoueurTest {
         j.setPosition(c);
 
         c.getVoisinH().setEtat(Case.State.INONDE);
-        j.move('h');
+        assertTrue(j.move('h'));
         assertEquals(j.getPosition(), i.getCase(4,5));
-        j.dry('x');
+        assertTrue(j.dry('x'));
         assertEquals(c.getVoisinH().getEtat(), Case.State.SEC);
 
-        j.move('b');
+        assertTrue(j.move('b'));
         assertEquals(j.getPosition(), c);
 
         c.getVoisinG().setEtat(Case.State.SUBMERGEE);
-        j.move('g');
+        assertFalse(j.move('g'));
+        assertFalse(j.dry('g'));
         assertEquals(j.getPosition(), c);
 
-        j.move('d');
+        assertTrue(j.move('d'));
         assertEquals(j.getPosition(), c.getVoisinD());
-
     }
 }

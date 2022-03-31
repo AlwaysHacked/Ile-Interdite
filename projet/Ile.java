@@ -69,5 +69,31 @@ public class Ile {
         return Grille[x][y];
     }
 
-    public int getSizeGrille(){ return this.sizeGrille;}
+    public int getSizeGrille(){
+        return this.sizeGrille;
+    }
+
+    public void afficheGrille(){
+        int max = this.sizeGrille + 2;
+        for (int i = 0; i < max; i++){
+            for (int j = 0; j < max; j++){
+                if (i == 0 || i == max-1) {
+                    if (j == 0 || j == max-1)
+                        System.out.print('+');
+                    else System.out.print("─────");
+                }
+                else if (j == 0 || j == max-1)
+                    System.out.print('│');
+                else
+                    System.out.print(' ' + Grille[i-1][j-1].toString() + ' ');
+            }
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) {
+        Ile i = new Ile(10);
+        i.afficheGrille();
+    }
 }
+

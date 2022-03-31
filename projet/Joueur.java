@@ -38,17 +38,23 @@ public class Joueur {
         return cs;
     }
 
-    public void move(char c){
+    public boolean move(char c){
         Case cs = getDirection(c);
 
-        if (cs != null && cs.canCross())
+        if (cs != null && cs.canCross()) {
             this.position = cs;
+            return true;
+        }
+        return false;
     }
 
-    public void dry(char c){
+    public boolean dry(char c){
         Case cs = c == 'x' ? this.position : getDirection(c);
 
-        if(cs != null && cs.canDry())
+        if(cs != null && cs.canDry()) {
             cs.setEtat(Case.State.SEC);
+            return true;
+        }
+        return false;
     }
 }
