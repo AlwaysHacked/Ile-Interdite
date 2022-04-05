@@ -29,13 +29,15 @@ public class Joueur {
     }
 
     public Case getDirection(char c){
-        return switch (c) {
-            case 'h' -> this.position.getVoisinH();
-            case 'b' -> this.position.getVoisinB();
-            case 'g' -> this.position.getVoisinG();
-            case 'd' -> this.position.getVoisinD();
-            default -> throw new IllegalArgumentException("Unknown direction");
-        };
+        Case cs;
+        switch (c){
+            case 'h': cs = this.position.getVoisinH(); break;
+            case 'b': cs = this.position.getVoisinB(); break;
+            case 'g': cs = this.position.getVoisinG(); break;
+            case 'd': cs = this.position.getVoisinD(); break;
+            default : throw new IllegalArgumentException("Unknown direction");
+        }
+        return cs;
     }
 
     public boolean move(char c){
