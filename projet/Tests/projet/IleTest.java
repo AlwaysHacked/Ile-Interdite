@@ -10,7 +10,7 @@ public class IleTest {
     Ile i = new Ile(s);
 
     @Test
-    void etatDeGrille(){
+    public void etatDeGrille(){
         for (int t = 0; t < s; t++){
             for (int j = 0; j < s; j++){
                 if(t == 0 || j == 0 || t == s-1 || j == s-1)
@@ -22,7 +22,7 @@ public class IleTest {
     }
 
     @Test
-    void coinHautGauche(){;
+    public void coinHautGauche(){;
         Case c = i.getCase(1,1);
 
         assertNull(c.getVoisinH());
@@ -32,7 +32,7 @@ public class IleTest {
     }
 
     @Test
-    void coinHautDroit(){;
+    public void coinHautDroit(){;
         Case c = i.getCase(1,s-2);
 
         assertNull(c.getVoisinH());
@@ -42,7 +42,7 @@ public class IleTest {
     }
 
     @Test
-    void coinBasGauche(){;
+    public void coinBasGauche(){;
         Case c = i.getCase(s-2,1);
 
         assertEquals(c.getVoisinH(), i.getCase(s-3, 1));
@@ -52,7 +52,7 @@ public class IleTest {
     }
 
     @Test
-    void coinBasDroit(){;
+    public void coinBasDroit(){;
         Case c = i.getCase(s-2,s-2);
 
         assertEquals(c.getVoisinH(), i.getCase(s-3,s-2));
