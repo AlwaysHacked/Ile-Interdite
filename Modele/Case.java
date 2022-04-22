@@ -3,7 +3,6 @@ package Modele;
 import Obs.Observable;
 
 public class Case extends Observable {
-
     public enum State {SEC, INONDE, SUBMERGEE;
 
         @Override
@@ -50,6 +49,10 @@ public class Case extends Observable {
 
     public State getEtat() {
         return etat;
+    }
+
+    public void setEtat(State s) {
+        this.etat = s;
     }
 
     public boolean inonde() {

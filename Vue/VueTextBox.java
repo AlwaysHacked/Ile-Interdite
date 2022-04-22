@@ -10,14 +10,14 @@ import java.awt.*;
 public class VueTextBox extends JPanel implements Observer{
 
     private Ile ile;
-    private Box box;
+    private TextBox box;
     private final int width = VueGrille.TAILLE* ile.getSize();
     private final int height = (((VueGrille.TAILLE *2+5) * ile.getSize())/3)*2;
 
 
     public VueTextBox(Ile g) {
         this.ile = g;
-        this.box = this.ile.getBox();
+//        this.box = this.ile.getTextBox();
         this.box.addObserver(this);
         this.ile.addObserver(this);
         Dimension dim = new Dimension(width, height);
@@ -28,9 +28,7 @@ public class VueTextBox extends JPanel implements Observer{
 
     @Override
     public void update() {
-        // TODO Auto-generated method stub
         repaint();
-
     }
 
     public void paintComponent(Graphics g) {
@@ -48,7 +46,7 @@ public class VueTextBox extends JPanel implements Observer{
         g2.setStroke(new BasicStroke(5));
         g2.drawRoundRect(5, 5, width-10, height-10, 25, 25);
 
-        g2.drawString(this.box.getCurrentText(), 40 , height / 2);
+        g2.drawString(this.box.getText(), 40 , height / 2);
     }
 
 }

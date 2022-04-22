@@ -1,16 +1,21 @@
 package Vue;
 
+import Controlleur.ControlleurCase;
 import Modele.Case;
 import Modele.Ile;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+
 import Obs.Observer;
 
 
 public class VueGrille extends JPanel implements Observer {
     /** On maintient une référence vers le modèle. */
     private Ile ile;
+    /** Les cases sont stockes ici */
+    private ArrayList<JLabel> jl = new ArrayList<>();
     /** Définition d'une taille (en pixels) pour l'affichage des cellules. */
     public final static int TAILLE = 12;
 
@@ -27,6 +32,26 @@ public class VueGrille extends JPanel implements Observer {
         Dimension dim = new Dimension(TAILLE*ile.getSizeGrille(),
                 TAILLE*ile.getSizeGrille());
         this.setPreferredSize(dim);
+        for (int i = ile.getSize() - 1; i >= 0; i--) {
+            for (int j = ile.getSize() - 1; j >= 0; j--) {
+                if (ile.getCase(j, i) != null) {
+                    int step = j * 3;
+                    ImageIcon temp = new ImageIcon();
+                    JLabel object = new JLabel();
+
+                    object.setBounds(step, (ile.getSize() * 2 * VueGrille.TAILLE) - i*2 - VueGrille.TAILLE*2,
+                            VueGrille.TAILLE * 2 - 10,
+                            VueGrille.TAILLE * 2 - 10);
+                    object.setIcon(temp);
+                    ControlleurCase ctrl = new ControlleurCase(this.ile, this.ile.getCase(j, i));
+                    object.addMouseListener(ctrl);
+
+                    this.add(object);
+                    jl.add(object);
+                }
+            }
+        }
+
     }
 
     /**
@@ -67,17 +92,48 @@ public class VueGrille extends JPanel implements Observer {
      * Ceci serait impossible si [Cellule] était déclarée privée dans [ile].
      */
     private void paint(Graphics g, Case c, int x, int y) {
-        /** Sélection d'une couleur. */
-//        if (c.estVivante()) {
-//            g.setColor(Color.BLACK);
-//        } else {
-//            g.setColor(Color.WHITE);
-//        }
-//        /** Coloration d'un rectangle. */
-//        g.fillRect(x, y, TAILLE, TAILLE);
+        if (c.getEtat() == Case.State.INONDE ) {
+         String n = "Ressources/Innonde.png";
+         this.newFrame(n, x, y, 1, g);
+
+         } else {
+         if (c.getEtat() == Case.State.SUBMERGEE) {
+         String n = "Ressources/Submerge.png";
+         this.newFrame(n, x, y, 1, g);
+
+         } else {
+         String n = "Ressources/Normal.png";
+         this.newFrame(n, x, y, 1, g);
+
+         }
+    }
+    }
+    public void newFrame(String n, int x, int y, int c, Graphics g) {
+        int step = (n == "Ressources/player1.png" ? x*3 + 25 : x*3);
+
+        ImageIcon temp = new ImageIcon();
+        ImageIcon temp2 = new ImageIcon(this.getClass().getResource(n));
+
+        int width = (n == "Ressources/player1.png" ? TAILLE : TAILLE * 2);
+
+        g.drawImage(temp2.getImage(), step, (ile.getSize() * 2 * TAILLE) - y*2 - TAILLE*2,
+                width + (n == "Ressources/player1.png" ? 0 : 20),
+                width, this);
+
+        // JLabel object = new JLabel();
+        jl.get(c).setBounds(step, (ile.getSize() *2* TAILLE) - y*2 - TAILLE*2,
+                TAILLE * 2 - 10,
+                TAILLE * 2 - 10);
+        // object.setIcon(temp);
+        // ZoneController ctrl = new ZoneController(this.grille.getZone(x/TAILLE,
+        // y/TAILLE));
+        // object.addMouseListener(ctrl);
+        // this.add(object);
+        jl.get(c).setIcon(temp);
+
     }
 
-    public static int getTAILLE() {
-        return TAILLE;
-    }
+//    public static int getTAILLE() {
+//        return TAILLE;
+//    }
 }

@@ -118,7 +118,21 @@ public class Ile extends Observable {
         }
     }
 
-    public boolean movePlayer()
+    public void movePlayer(Case c){
+        boolean t = this.joueurs.get(this.joueurCourant).move(c);
+        this.actionRest = t == true ? this.actionRest - 1 : this.actionRest;
+//        return t;
+    }
+
+    public void seche(Case c){ // verifier si la case donnee est adjacente
+        boolean t = this.joueurs.get(this.joueurCourant).dry(c);
+        this.actionRest = t == true ? this.actionRest - 1 : this.actionRest;
+//        return t;
+    }
+
+    public int getJoueur() {
+        return joueurCourant;
+    }
 
     public boolean tourSuivant(){
         this.joueurCourant = this.joueurCourant == 3 ? 0 : this.joueurCourant+1;
@@ -132,25 +146,28 @@ public class Ile extends Observable {
         return actionRest;
     }
 
-    //    private void inondation() {
-//        int X[] = new int[] {-1, -1, -1};
-//        int Y[] = new int[] {-1, -1, -1};
-//
-//        boolean done = false;
-//
-//        for (int i = 0; i < 3; i++){
-//            int x = rand.nextInt(sizeGrille - 1);
-//            int y = rand.nextInt(sizeGrille - 1);
-//
-//            for(int j = 0; j < i; j++) {
-//                if (x == X[i] && y == Y[i])
-//                    j--;
-//                else
-//                    X[i] = x;
-//
-//            }
-//        }
-//    }
+    private void inondation() {
+        boolean putIntoList = false;
+        ArrayList<int[]> couples = new ArrayList<>();
+
+        for (int i = 0; i < 3; i++) {
+            putIntoList = true;
+            int c[] = {rand.nextInt(sizeGrille - 1), rand.nextInt(sizeGrille - 1)};
+
+            for (int j = 0; j < i; j++) {
+                if (c[0] == (couples.get(j))[0] && c[1] == (couples.get(j))[1] &&
+                        this.getCase(c[0], c[1]).getEtat() == Case.State.SUBMERGEE) {
+                    i--;
+                    putIntoList = false;
+                    break;
+                }
+            }
+            if (putIntoList)
+                couples.add(c);
+        }
+        for(int[] i : couples)
+            getCase(i[0], i[1]).inonde();
+    }
 
 //    public static void main(String[] args) {
 //        Ile i = new Ile(10);

@@ -44,7 +44,10 @@ public class Joueur extends Observable {
 
     public boolean move(char c){
         Case cs = getDirection(c);
+        return move(cs);
+    }
 
+    public boolean move(Case cs){
         if (cs != null && cs.canCross()) {
             this.position = cs;
             return true;
@@ -54,7 +57,10 @@ public class Joueur extends Observable {
 
     public boolean dry(char c){
         Case cs = c == 'x' ? this.position : getDirection(c);
+        return dry(cs);
+    }
 
+    public boolean dry(Case cs){
         if(cs != null && cs.canDry()) {
             cs.seche();
             return true;

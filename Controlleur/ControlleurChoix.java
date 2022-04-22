@@ -20,32 +20,11 @@ public class ControlleurChoix implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
         switch (this.text) {
-            case "Move":
-                if (this.ile.getActionRest() > 0) {
-                    boolean can = this.ile.movePlayer(this.ile.getCurrentPlayer() , c);
-                    if (can) {
-                        this.ile.decreaseMoveNb();
-                    } else {
-                        System.out.print("déplacement impossible");
-                    }
-                } else {
-                    System.out.print("déplacement impossible, no more moves");
-                }
-                break;
-            case "Shore Up":
-                if (this.ile.getActionRest() > 0) {
-                    this.ile.shoreUp(this.c);
-                } else {
-                    System.out.print("déplacement impossible, no more moves");
-                    break;
-                }
-
-            default:
-                break;
+            case "Move":        this.ile.movePlayer(c); break;
+            case "Shore Up":    this.ile.seche(this.c); break;
+            default : throw new IllegalArgumentException("[In `ControlleurChoix`] : Unknown action");
         }
-
     }
 
 }
