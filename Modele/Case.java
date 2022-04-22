@@ -2,7 +2,7 @@ package Modele;
 
 import Obs.Observable;
 
-public class Case  extends Observable {
+public class Case extends Observable {
 
     public enum State {SEC, INONDE, SUBMERGEE;
 
@@ -52,8 +52,19 @@ public class Case  extends Observable {
         return etat;
     }
 
-    public void setEtat(State etat) {
-        this.etat = etat;
+    public boolean inonde() {
+        if (this.etat == State.INONDE) {
+            this.etat = State.SUBMERGEE;
+            return true;
+        } else if (this.etat == State.SEC) {
+            this.etat = State.INONDE;
+            return true;
+        } else return false;
+    }
+
+    public void seche(){
+        this.etat = State.SEC;
+        notifyObservers();
     }
 
     public boolean canCross(){
