@@ -3,6 +3,7 @@ package Modele;
 import Obs.Observable;
 import Vue.VueGrille;
 
+import java.util.Random;
 import java.util.ArrayList;
 
 public class Ile extends Observable {
@@ -11,6 +12,12 @@ public class Ile extends Observable {
     private int sizeGrille;
     private final int defaultGrilleSize = 10;
     private Case[][] Grille;
+
+    Random rand = new Random();
+
+    private int joueurCourant;
+    private int actionRest;
+    private ArrayList<Joueur> joueurs = new ArrayList<>();
 
     private ArrayList<Item> stock = new ArrayList<>();
 
@@ -91,6 +98,7 @@ public class Ile extends Observable {
     public int getSizeGrille(){
         return this.sizeGrille;
     }
+    public int getSize(){ return this.sizeGrille; }
 
     public void afficheGrille(){
         int max = this.sizeGrille + 2;
@@ -110,13 +118,45 @@ public class Ile extends Observable {
         }
     }
 
-    public static void main(String[] args) {
-        Ile i = new Ile(10);
-        i.afficheGrille();
+    public boolean movePlayer()
+
+    public boolean tourSuivant(){
+        this.joueurCourant = this.joueurCourant == 3 ? 0 : this.joueurCourant+1;
+        this.actionRest = 3;
+//        this.inondation();
+        notifyObservers();
+        return true;
     }
 
-    public void addObserver(VueGrille vueGrille) {
-
+    public int getActionRest() {
+        return actionRest;
     }
+
+    //    private void inondation() {
+//        int X[] = new int[] {-1, -1, -1};
+//        int Y[] = new int[] {-1, -1, -1};
+//
+//        boolean done = false;
+//
+//        for (int i = 0; i < 3; i++){
+//            int x = rand.nextInt(sizeGrille - 1);
+//            int y = rand.nextInt(sizeGrille - 1);
+//
+//            for(int j = 0; j < i; j++) {
+//                if (x == X[i] && y == Y[i])
+//                    j--;
+//                else
+//                    X[i] = x;
+//
+//            }
+//        }
+//    }
+
+//    public static void main(String[] args) {
+//        Ile i = new Ile(10);
+//        i.afficheGrille();
+//    }
+
+
 }
 

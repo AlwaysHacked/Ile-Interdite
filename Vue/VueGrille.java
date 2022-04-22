@@ -12,7 +12,7 @@ public class VueGrille extends JPanel implements Observer {
     /** On maintient une référence vers le modèle. */
     private Ile ile;
     /** Définition d'une taille (en pixels) pour l'affichage des cellules. */
-    private final static int TAILLE = 12;
+    public final static int TAILLE = 12;
 
     /** Constructeur. */
     public VueGrille(Ile ile) {
@@ -75,5 +75,9 @@ public class VueGrille extends JPanel implements Observer {
 //        }
 //        /** Coloration d'un rectangle. */
 //        g.fillRect(x, y, TAILLE, TAILLE);
+    }
+
+    public static int getTAILLE() {
+        return TAILLE;
     }
 }

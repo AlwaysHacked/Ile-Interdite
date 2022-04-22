@@ -23,7 +23,7 @@ public class ControlleurChoix implements ActionListener {
         // TODO Auto-generated method stub
         switch (this.text) {
             case "Move":
-                if (this.ile.isRemainingMoves()) {
+                if (this.ile.getActionRest() > 0) {
                     boolean can = this.ile.movePlayer(this.ile.getCurrentPlayer() , c);
                     if (can) {
                         this.ile.decreaseMoveNb();
@@ -35,7 +35,7 @@ public class ControlleurChoix implements ActionListener {
                 }
                 break;
             case "Shore Up":
-                if (this.ile.isRemainingMoves()) {
+                if (this.ile.getActionRest() > 0) {
                     this.ile.shoreUp(this.c);
                 } else {
                     System.out.print("déplacement impossible, no more moves");

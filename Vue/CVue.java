@@ -2,8 +2,9 @@ package Vue;
 
 import Modele.Ile;
 
-import javax.swing.*;
 import java.awt.*;
+
+import javax.swing.JFrame;
 
 public class CVue {
     /**
@@ -17,12 +18,14 @@ public class CVue {
      */
     private VueGrille grille;
     private VueCommande commandes;
+//    private VueContrelleur control;
+//    private BoxView box;
 
     /** Construction d'une vue attachée à un modèle. */
     public CVue(Ile ile) {
         /** Définition de la fenêtre principale. */
         frame = new JFrame();
-        frame.setTitle("Jeu de la vie de Conway");
+        frame.setTitle("Ile Interdite");
         /**
          * On précise un mode pour disposer les différents éléments à
          * l'intérieur de la fenêtre. Quelques possibilités sont :
