@@ -56,7 +56,7 @@ public class Joueur extends Observable {
         Case cs = c == 'x' ? this.position : getDirection(c);
 
         if(cs != null && cs.canDry()) {
-            cs.setEtat(Case.State.SEC);
+            cs.seche();
             return true;
         }
         return false;

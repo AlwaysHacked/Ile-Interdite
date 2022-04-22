@@ -22,6 +22,7 @@ public class Controlleur implements ActionListener {
      */
     public void actionPerformed(ActionEvent e) {
 //        ile.avance();
+        System.out.println(e);
     }
 }
 /** Fin du contrôleur. */
