@@ -2,7 +2,7 @@ package Obs;
 
 import java.util.ArrayList;
 
-abstract class Observable {
+public abstract class Observable {
     /**
      * On a une liste [observers] d'observateurs, initialement vide, à laquelle
      * viennent s'inscrire les observateurs via la méthode [addObserver].

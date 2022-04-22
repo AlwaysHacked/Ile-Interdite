@@ -1,9 +1,11 @@
 package Vue;
 
+import Modele.Ile;
+
 import javax.swing.*;
 import java.awt.*;
 
-class CVue {
+public class CVue {
     /**
      * JFrame est une classe fournie pas Swing. Elle représente la fenêtre
      * de l'application graphique.
@@ -14,10 +16,10 @@ class CVue {
      * nos deux parties de l'interface graphique.
      */
     private VueGrille grille;
-    private VueCommandes commandes;
+    private VueCommande commandes;
 
     /** Construction d'une vue attachée à un modèle. */
-    public CVue(CModele modele) {
+    public CVue(Ile ile) {
         /** Définition de la fenêtre principale. */
         frame = new JFrame();
         frame.setTitle("Jeu de la vie de Conway");
@@ -39,9 +41,9 @@ class CVue {
         frame.setLayout(new FlowLayout());
 
         /** Définition des deux vues et ajout à la fenêtre. */
-        grille = new VueGrille(modele);
+        grille = new VueGrille(ile);
         frame.add(grille);
-        commandes = new VueCommandes(modele);
+        commandes = new VueCommande(ile);
         frame.add(commandes);
         /**
          * Remarque : on peut passer à la méthode [add] des paramètres

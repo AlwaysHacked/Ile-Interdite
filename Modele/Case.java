@@ -1,6 +1,8 @@
 package Modele;
 
-public class Case {
+import Obs.Observable;
+
+public class Case  extends Observable {
 
     public enum State {SEC, INONDE, SUBMERGEE;
 

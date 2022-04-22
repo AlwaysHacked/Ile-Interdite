@@ -1,8 +1,11 @@
 package Modele;
 
+import Obs.Observable;
+import Vue.VueGrille;
+
 import java.util.ArrayList;
 
-public class Ile {
+public class Ile extends Observable {
 //    size is always >2, otherwise it's not interesting
 //    sizeGrille, Serge removed `final` for instance to be able to write 2 constructors
     private int sizeGrille;
@@ -110,6 +113,10 @@ public class Ile {
     public static void main(String[] args) {
         Ile i = new Ile(10);
         i.afficheGrille();
+    }
+
+    public void addObserver(VueGrille vueGrille) {
+
     }
 }
 

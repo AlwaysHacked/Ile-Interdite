@@ -1,17 +1,20 @@
 package Vue;
 
+import Modele.Ile;
+import Controlleur.Controlleur;
+
 import javax.swing.*;
 
-class VueCommandes extends JPanel {
+public class VueCommande extends JPanel {
     /**
      * Pour que le bouton puisse transmettre ses ordres, on garde une
      * référence au modèle.
      */
-    private CModele modele;
+    private Ile ile;
 
     /** Constructeur. */
-    public VueCommandes(CModele modele) {
-        this.modele = modele;
+    public VueCommande(Ile ile) {
+        this.ile = ile;
         /**
          * On crée un nouveau bouton, de classe [JButton], en précisant le
          * texte qui doit l'étiqueter.
@@ -41,7 +44,7 @@ class VueCommandes extends JPanel {
          * contrôleur sera donc particulièrement simple. Cela nécessite
          * néanmoins la création d'une classe dédiée.
          */
-        Controleur ctrl = new Controleur(modele);
+        Controlleur ctrl = new Controlleur(ile);
         /** Enregistrement du contrôleur comme auditeur du bouton. */
         boutonAvance.addActionListener(ctrl);
 
@@ -51,7 +54,7 @@ class VueCommandes extends JPanel {
          *
          JButton boutonAvance = new JButton(">");
          this.add(boutonAvance);
-         boutonAvance.addActionListener(e -> { modele.avance(); });
+         boutonAvance.addActionListener(e -> { ile.avance(); });
          *
          */
 

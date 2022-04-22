@@ -1,26 +1,31 @@
 package Vue;
 
+import Modele.Case;
+import Modele.Ile;
+
 import javax.swing.*;
 import java.awt.*;
+import Obs.Observer;
 
-class VueGrille extends JPanel implements Observer {
+
+public class VueGrille extends JPanel implements Observer {
     /** On maintient une référence vers le modèle. */
-    private CModele modele;
+    private Ile ile;
     /** Définition d'une taille (en pixels) pour l'affichage des cellules. */
     private final static int TAILLE = 12;
 
     /** Constructeur. */
-    public VueGrille(CModele modele) {
-        this.modele = modele;
-        /** On enregistre la vue [this] en tant qu'observateur de [modele]. */
-        modele.addObserver(this);
+    public VueGrille(Ile ile) {
+        this.ile = ile;
+        /** On enregistre la vue [this] en tant qu'observateur de [ile]. */
+        ile.addObserver(this);
         /**
          * Définition et application d'une taille fixe pour cette zone de
          * l'interface, calculée en fonction du nombre de cellules et de la
          * taille d'affichage.
          */
-        Dimension dim = new Dimension(TAILLE*CModele.LARGEUR,
-                TAILLE*CModele.HAUTEUR);
+        Dimension dim = new Dimension(TAILLE*ile.getSizeGrille(),
+                TAILLE*ile.getSizeGrille());
         this.setPreferredSize(dim);
     }
 
@@ -43,32 +48,32 @@ class VueGrille extends JPanel implements Observer {
     public void paintComponent(Graphics g) {
         super.repaint();
         /** Pour chaque cellule... */
-        for(int i=1; i<=CModele.LARGEUR; i++) {
-            for(int j=1; j<=CModele.HAUTEUR; j++) {
+        for(int i=1; i <= ile.getSizeGrille(); i++) {
+            for(int j=1; j <= ile.getSizeGrille(); j++) {
                 /**
                  * ... Appeler une fonction d'affichage auxiliaire.
                  * On lui fournit les informations de dessin [g] et les
                  * coordonnées du coin en haut à gauche.
                  */
-                paint(g, modele.getCellule(i, j), (i-1)*TAILLE, (j-1)*TAILLE);
+                paint(g, ile.getCase(i, j), (i-1)*TAILLE, (j-1)*TAILLE);
             }
         }
     }
     /**
      * Fonction auxiliaire de dessin d'une cellule.
      * Ici, la classe [Cellule] ne peut être désignée que par l'intermédiaire
-     * de la classe [CModele] à laquelle elle est interne, d'où le type
-     * [CModele.Cellule].
-     * Ceci serait impossible si [Cellule] était déclarée privée dans [CModele].
+     * de la classe [ile] à laquelle elle est interne, d'où le type
+     * [ile.Cellule].
+     * Ceci serait impossible si [Cellule] était déclarée privée dans [ile].
      */
-    private void paint(Graphics g, Cellule c, int x, int y) {
+    private void paint(Graphics g, Case c, int x, int y) {
         /** Sélection d'une couleur. */
-        if (c.estVivante()) {
-            g.setColor(Color.BLACK);
-        } else {
-            g.setColor(Color.WHITE);
-        }
-        /** Coloration d'un rectangle. */
-        g.fillRect(x, y, TAILLE, TAILLE);
+//        if (c.estVivante()) {
+//            g.setColor(Color.BLACK);
+//        } else {
+//            g.setColor(Color.WHITE);
+//        }
+//        /** Coloration d'un rectangle. */
+//        g.fillRect(x, y, TAILLE, TAILLE);
     }
 }

@@ -1,8 +1,10 @@
 package Modele;
 
+import Obs.Observable;
+
 import java.util.ArrayList;
 
-public class Joueur {
+public class Joueur extends Observable {
     private Ile ile;
     private Case position;
     private ArrayList<Item> inventaire = new ArrayList<>();

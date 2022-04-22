@@ -1,9 +1,11 @@
 package Controlleur;
 
+import Modele.Ile;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-class Controleur implements ActionListener {
+public class Controlleur implements ActionListener {
     /**
      * On garde un pointeur vers le modèle, car le contrôleur doit
      * provoquer un appel de méthode du modèle.
@@ -12,14 +14,14 @@ class Controleur implements ActionListener {
      * faire directement référence au modèle enregistré pour la classe
      * englobante [VueCommandes].
      */
-    CModele modele;
-    public Controleur(CModele modele) { this.modele = modele; }
+    Ile ile;
+    public Controlleur(Ile ile) { this.ile = ile; }
     /**
      * Action effectuée à réception d'un événement : appeler la
      * méthode [avance] du modèle.
      */
     public void actionPerformed(ActionEvent e) {
-        modele.avance();
+//        ile.avance();
     }
 }
 /** Fin du contrôleur. */
