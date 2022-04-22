@@ -1,6 +1,9 @@
-package projet;
+package Tests;
 
+import org.junit.Assert;
 import org.junit.Test;
+import Modele.Case;
+import Modele.Ile;
 
 import static org.junit.Assert.*;
 //import org.testng.annotations.Test;
@@ -14,7 +17,7 @@ public class IleTest {
         for (int t = 0; t < s; t++){
             for (int j = 0; j < s; j++){
                 if(t == 0 || j == 0 || t == s-1 || j == s-1)
-                    assertEquals(i.getCase(t,j).getEtat(), Case.State.SUBMERGEE);
+                    Assert.assertEquals(i.getCase(t,j).getEtat(), Case.State.SUBMERGEE);
                 else
                     assertEquals(i.getCase(t,j).getEtat(), Case.State.SEC);
             }

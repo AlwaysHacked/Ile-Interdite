@@ -1,4 +1,4 @@
-package projet;
+package Modele;
 
 public class Case {
 

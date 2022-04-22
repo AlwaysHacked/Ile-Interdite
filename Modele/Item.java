@@ -1,4 +1,4 @@
-package projet;
+package Modele;
 
 abstract class Item {
 
