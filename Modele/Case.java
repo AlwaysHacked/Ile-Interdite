@@ -1,16 +1,19 @@
-package projet;
+package Modele;
 
-public class Case {
+import Obs.Observable;
+
+public class Case  extends Observable {
 
     public enum State {SEC, INONDE, SUBMERGEE;
 
         @Override
         public String toString() {
-            return switch (this) {
-                case SEC -> "SEC";
-                case INONDE -> "INO";
-                case SUBMERGEE -> "SUB";
-            };
+            switch (this) {
+                case SEC: return "SEC";
+                case INONDE: return "INO";
+                case SUBMERGEE: return "SUB";
+                default: throw new IllegalArgumentException("Unknown state\nSEC, INO, SUB allowed");
+            }
         }
     };
 

@@ -1,8 +1,10 @@
-package projet;
+package Tests;
 
 import org.junit.Test;
-//
-// import org.testng.annotations.Test;
+import Modele.Case;
+import Modele.Ile;
+import Modele.Joueur;
+//import org.testng.annotations.Test;
 
 import static org.junit.Assert.*;
 

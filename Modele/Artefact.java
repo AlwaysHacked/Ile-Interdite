@@ -1,4 +1,4 @@
-package projet;
+package Modele;
 
 public class Artefact extends Item{
     Artefact(Type type){
