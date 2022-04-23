@@ -1,3 +1,10 @@
 # Default ignored files
 /shelf/
 /workspace.xml
+/libraries/junit_jupiter.xml
+/misc.xml
+/modules.xml
+/runConfigurations.xml
+/libraries/testng.xml
+/uiDesigner.xml
+/vcs.xml
