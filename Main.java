@@ -18,7 +18,7 @@ public class Main {
          */
         EventQueue.invokeLater(() -> {
             /** Voici le contenu qui nous intéresse. */
-            Ile ile = new Ile(10);
+            Ile ile = new Ile(20);
             CVue vue = new CVue(ile);
             ile.afficheGrille();
         });

@@ -21,13 +21,13 @@ public class ControlleurCase implements MouseListener {
         this.ile = g;
         this.items = new ArrayList<>();
         this.pop = new JPopupMenu();
-        this.items.add(new JMenuItem("Move"));
-        this.items.add(new JMenuItem("Shore Up"));
+        this.items.add(new JMenuItem("Bouger"));
+        this.items.add(new JMenuItem("Secher"));
         this.pop.add(items.get(0));
         this.pop.add(items.get(1));
-        var m = new ControlleurChoix(ile, c, "Move");
+        var m = new ControlleurChoix(ile, c, "Bouger");
         items.get(0).addActionListener(m);
-        var n = new ControlleurChoix(ile, c, "Shore Up");
+        var n = new ControlleurChoix(ile, c, "Secher");
         items.get(1).addActionListener(n);
 
     }
