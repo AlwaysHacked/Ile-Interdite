@@ -29,8 +29,8 @@ public class VueGrille extends JPanel implements Observer {
          * l'interface, calculée en fonction du nombre de cellules et de la
          * taille d'affichage.
          */
-        Dimension dim = new Dimension(TAILLE*ile.getSizeGrille(),
-                TAILLE*ile.getSizeGrille());
+        Dimension dim = new Dimension(TAILLE*ile.getSizeGrille() *3,
+                TAILLE*ile.getSizeGrille() * 3);
         this.setPreferredSize(dim);
         for (int i = ile.getSize() - 1; i >= 0; i--) {
             for (int j = ile.getSize() - 1; j >= 0; j--) {
