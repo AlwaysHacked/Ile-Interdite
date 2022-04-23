@@ -137,7 +137,7 @@ public class Ile extends Observable {
     public boolean tourSuivant(){
         this.joueurCourant = this.joueurCourant == 3 ? 0 : this.joueurCourant+1;
         this.actionRest = 3;
-//        this.inondation();
+        this.inondation();
         notifyObservers();
         return true;
     }
