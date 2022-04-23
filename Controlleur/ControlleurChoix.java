@@ -21,8 +21,8 @@ public class ControlleurChoix implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (this.text) {
-            case "Move":        this.ile.movePlayer(c); break;
-            case "Shore Up":    this.ile.seche(this.c); break;
+            case "Bouger":        this.ile.movePlayer(c); break;
+            case "Secher":    this.ile.seche(this.c); break;
             default : throw new IllegalArgumentException("[In `ControlleurChoix`] : Unknown action");
         }
     }

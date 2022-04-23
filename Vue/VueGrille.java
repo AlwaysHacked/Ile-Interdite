@@ -17,7 +17,7 @@ public class VueGrille extends JPanel implements Observer {
     /** Les cases sont stockes ici */
     private ArrayList<JLabel> jl = new ArrayList<>();
     /** Définition d'une taille (en pixels) pour l'affichage des cellules. */
-    public final static int TAILLE = 35;
+    public final static int TAILLE = 30;
 
     /** Constructeur. */
     public VueGrille(Ile ile) {
@@ -71,13 +71,13 @@ public class VueGrille extends JPanel implements Observer {
      * comme la couleur actuelle.
      */
     public void paintComponent(Graphics g) {
-//        super.repaint();
+        super.repaint();
 //        super.paintComponent(g);
-        System.out.println("dedans");
+//        System.out.println("dedans");
         int c = -1;
         /** Pour chaque cellule... */
-        for(int i=1; i <= ile.getSizeGrille(); i++) {
-            for(int j=1; j <= ile.getSizeGrille(); j++) {
+        for(int i = 0; i < ile.getSizeGrille(); i++) {
+            for(int j = 0; j < ile.getSizeGrille(); j++) {
                 /**
                  * ... Appeler une fonction d'affichage auxiliaire.
                  * On lui fournit les informations de dessin [g] et les
@@ -98,7 +98,7 @@ public class VueGrille extends JPanel implements Observer {
      */
     private void paint(Graphics g, Case c, int x, int y, int cnt) {
         String n ;
-        System.out.println(c);
+//        System.out.println(c);
         if (c.getEtat() == Case.State.INONDE )
              n = "Ressources/Innonde.png";
          else if (c.getEtat() == Case.State.SUBMERGEE)
@@ -112,6 +112,7 @@ public class VueGrille extends JPanel implements Observer {
     public void newFrame(String n, int x, int y, int c, Graphics g) {
         int step = (n == "Ressources/player1.png" ? x*3 + 25 : x*3);
 
+//        System.out.println(n);
         ImageIcon temp = new ImageIcon();
         ImageIcon temp2 = new ImageIcon(this.getClass().getResource(n));
 
