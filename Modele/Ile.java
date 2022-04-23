@@ -14,7 +14,7 @@ public class Ile extends Observable {
 
     Random rand = new Random();
 
-    private int joueurCourant;
+    private int joueurCourant = 0;
     private int actionRest;
     private ArrayList<Joueur> joueurs = new ArrayList<>();
 
@@ -31,7 +31,7 @@ public class Ile extends Observable {
         initGrille();
         caseLinking();
         makeStock();
-        initJoueur(1);
+        initJoueur(4);
     }
 
     private void makeStock() {
@@ -126,7 +126,9 @@ public class Ile extends Observable {
 
     public void seche(Case c){ // verifier si la case donnee est adjacente
         boolean t = this.joueurs.get(this.joueurCourant).dry(c);
-        this.actionRest = t == true ? this.actionRest - 1 : this.actionRest;
+        if (t) System.out.println("sec");
+        this.actionRest = t ? this.actionRest - 1 : this.actionRest;
+        notifyObservers();
 //        return t;
     }
 
