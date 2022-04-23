@@ -156,14 +156,18 @@ public class Ile extends Observable {
             int c[] = {1 + rand.nextInt(sizeGrille - 2), 1 + rand.nextInt(sizeGrille - 2)};
 
             for (int j = 0; j < i; j++) {
-                if (c[0] == (couples.get(j))[0] && c[1] == (couples.get(j))[1] &&
-                        this.getCase(c[0], c[1]).getEtat() == Case.State.SUBMERGEE) {
+                if (c[0] == (couples.get(j))[0] && c[1] == (couples.get(j))[1]) {
                     i--;
                     putIntoList = false;
                     break;
                 }
             }
-            if (putIntoList)
+            if (this.getCase(c[0], c[1]).getEtat() == Case.State.SUBMERGEE){
+                i--;
+                putIntoList = false;
+            }
+
+            if (putIntoList )
                 couples.add(c);
         }
         for (int i = -1; ++i < nb;)
