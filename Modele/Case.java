@@ -24,7 +24,10 @@ public class Case extends Observable {
     private Case gauche;
     private Case droit;
 
+    private Joueur joueur;
+
     Case(boolean b){
+        this.joueur = null;
         if (b)
             etat = State.SEC;
         else
@@ -95,8 +98,25 @@ public class Case extends Observable {
         return this.droit;
     }
 
+    public boolean setJoueur(Joueur j){
+        if(this.joueur != null)
+            return false;
+
+        this.joueur = j;
+        return true;
+    }
+
+    public Joueur getJoueur(){
+        return this.joueur;
+    }
+
+    public boolean contientJoueur(){
+        return this.joueur != null;
+    }
     @Override
     public String toString() {
-        return etat.toString();
+        String s = etat.toString() ;
+        s += (this.joueur == null ? " " : "j");
+        return s;
     }
 }

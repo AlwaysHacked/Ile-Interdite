@@ -29,10 +29,10 @@ public class VueGrille extends JPanel implements Observer {
          * l'interface, calculée en fonction du nombre de cellules et de la
          * taille d'affichage.
          */
-        Dimension dim = new Dimension(TAILLE*ile.getSizeGrille(),
-                TAILLE*ile.getSizeGrille());
+        Dimension dim = new Dimension(TAILLE*ile.getSizeGrille() * 3,
+                TAILLE*ile.getSizeGrille() * 3);
         this.setPreferredSize(dim);
-        for (int i = ile.getSize() - 1; i >= 0; i--) {
+        for (int i = ile.getSizeGrille() - 1; i >= 0; i--) {
             for (int j = ile.getSize() - 1; j >= 0; j--) {
                 if (ile.getCase(j, i) != null) {
                     int step = j * 3;
@@ -97,17 +97,23 @@ public class VueGrille extends JPanel implements Observer {
      * Ceci serait impossible si [Cellule] était déclarée privée dans [ile].
      */
     private void paint(Graphics g, Case c, int x, int y, int cnt) {
-        String n ;
+        String n;
 //        System.out.println(c);
-        if (c.getEtat() == Case.State.INONDE )
-             n = "Ressources/Innonde.png";
-         else if (c.getEtat() == Case.State.SUBMERGEE)
-             n = "Ressources/Submerge.png";
-         else
-             n = "Ressources/Normal.png";
+        if (c.getEtat() == Case.State.INONDE)
+            n = "Ressources/Innonde.png";
+        else if (c.getEtat() == Case.State.SUBMERGEE)
+            n = "Ressources/Submerge.png";
+        else
+            n = "Ressources/Normal.png";
 
-         this.newFrame(n, x, y, cnt, g);
+        this.newFrame(n, x, y, cnt, g);
+
+        if(c.contientJoueur()){
+            n = "Ressources/player1.png";
+            this.newFrame(n, x, y, cnt, g);
+           }
     }
+
 
     public void newFrame(String n, int x, int y, int c, Graphics g) {
         int step = (n == "Ressources/player1.png" ? x*3 + 25 : x*3);

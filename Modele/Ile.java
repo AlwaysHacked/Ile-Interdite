@@ -1,7 +1,6 @@
 package Modele;
 
 import Obs.Observable;
-import Vue.VueGrille;
 
 import java.util.Random;
 import java.util.ArrayList;
@@ -32,6 +31,7 @@ public class Ile extends Observable {
         initGrille();
         caseLinking();
         makeStock();
+        initJoueur(1);
     }
 
     private void makeStock() {
@@ -112,7 +112,7 @@ public class Ile extends Observable {
                 else if (j == 0 || j == max-1)
                     System.out.print('│');
                 else
-                    System.out.print(' ' + Grille[i-1][j-1].toString() + ' ');
+                    System.out.print(' ' + Grille[i-1][j-1].toString());
             }
             System.out.println();
         }
@@ -146,13 +146,14 @@ public class Ile extends Observable {
         return actionRest;
     }
 
-    private void inondation() {
+    private ArrayList<Case> casesAleat(int nb) {
         boolean putIntoList = false;
         ArrayList<int[]> couples = new ArrayList<>();
+        ArrayList<Case> cases = new ArrayList<>();
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < nb; i++) {
             putIntoList = true;
-            int c[] = {rand.nextInt(sizeGrille - 1), rand.nextInt(sizeGrille - 1)};
+            int c[] = {1 + rand.nextInt(sizeGrille - 2), 1 + rand.nextInt(sizeGrille - 2)};
 
             for (int j = 0; j < i; j++) {
                 if (c[0] == (couples.get(j))[0] && c[1] == (couples.get(j))[1] &&
@@ -165,10 +166,29 @@ public class Ile extends Observable {
             if (putIntoList)
                 couples.add(c);
         }
-        for(int[] i : couples)
-            getCase(i[0], i[1]).inonde();
+        for (int i = -1; ++i < nb;)
+            System.out.println("Cases aleat :\t" + couples.get(i)[0] + " " + couples.get(i)[1]);
+        System.out.println();
+
+         for (int i = -1; ++i < nb;)
+             cases.add(getCase(couples.get(i)[0], couples.get(i)[1]));
+
+         return cases;
     }
 
+    public void inondation() {
+        ArrayList<Case> cases = casesAleat(3);
+        for(Case c : cases)
+            c.inonde();
+    }
+
+    private void initJoueur(int nb){
+        ArrayList<Case> cases = casesAleat(nb);
+        for(Case c : cases) {
+            this.joueurs.add(new Joueur(this, c));
+            c.setJoueur(this.joueurs.get(this.joueurs.size() - 1));
+        }
+    }
 //    public static void main(String[] args) {
 //        Ile i = new Ile(10);
 //        i.afficheGrille();
