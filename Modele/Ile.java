@@ -9,7 +9,7 @@ public class Ile extends Observable {
 //    size is always >2, otherwise it's not interesting
 //    sizeGrille, Serge removed `final` for instance to be able to write 2 constructors
     private int sizeGrille;
-    private final int defaultGrilleSize = 10;
+    private final int defaultGrilleSize = 6;
     private Case[][] Grille;
 
     Random rand = new Random();
