@@ -18,8 +18,7 @@ public class CVue {
      */
     private VueGrille grille;
     private VueCommande commandes;
-//    private VueContrelleur control;
-//    private BoxView box;
+
 
     /** Construction d'une vue attachée à un modèle. */
     public CVue(Ile ile) {
@@ -42,6 +41,7 @@ public class CVue {
          *    nombre de cases à placer et de la dimension du contenant.
          */
         frame.setLayout(new FlowLayout());
+
 
         /** Définition des deux vues et ajout à la fenêtre. */
         grille = new VueGrille(ile);
@@ -67,5 +67,9 @@ public class CVue {
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+    }
+
+    public void update(){
+        grille.update();
     }
 }

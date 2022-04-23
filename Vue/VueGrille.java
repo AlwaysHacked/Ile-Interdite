@@ -17,7 +17,7 @@ public class VueGrille extends JPanel implements Observer {
     /** Les cases sont stockes ici */
     private ArrayList<JLabel> jl = new ArrayList<>();
     /** Définition d'une taille (en pixels) pour l'affichage des cellules. */
-    public final static int TAILLE = 12;
+    public final static int TAILLE = 35;
 
     /** Constructeur. */
     public VueGrille(Ile ile) {
@@ -71,7 +71,10 @@ public class VueGrille extends JPanel implements Observer {
      * comme la couleur actuelle.
      */
     public void paintComponent(Graphics g) {
-        super.repaint();
+//        super.repaint();
+//        super.paintComponent(g);
+        System.out.println("dedans");
+        int c = -1;
         /** Pour chaque cellule... */
         for(int i=1; i <= ile.getSizeGrille(); i++) {
             for(int j=1; j <= ile.getSizeGrille(); j++) {
@@ -80,7 +83,9 @@ public class VueGrille extends JPanel implements Observer {
                  * On lui fournit les informations de dessin [g] et les
                  * coordonnées du coin en haut à gauche.
                  */
-                paint(g, ile.getCase(i, j), (i-1)*TAILLE, (j-1)*TAILLE);
+                if(ile.getCase(i,j) != null)
+                    paint(g, ile.getCase(i, j), (i-1)*TAILLE, (j-1)*TAILLE, ++c); // commence a c+1 => -1+1 = 0
+
             }
         }
     }
@@ -91,23 +96,19 @@ public class VueGrille extends JPanel implements Observer {
      * [ile.Cellule].
      * Ceci serait impossible si [Cellule] était déclarée privée dans [ile].
      */
-    private void paint(Graphics g, Case c, int x, int y) {
-        if (c.getEtat() == Case.State.INONDE ) {
-         String n = "Ressources/Innonde.png";
-         this.newFrame(n, x, y, 1, g);
+    private void paint(Graphics g, Case c, int x, int y, int cnt) {
+        String n ;
+        System.out.println(c);
+        if (c.getEtat() == Case.State.INONDE )
+             n = "Ressources/Innonde.png";
+         else if (c.getEtat() == Case.State.SUBMERGEE)
+             n = "Ressources/Submerge.png";
+         else
+             n = "Ressources/Normal.png";
 
-         } else {
-         if (c.getEtat() == Case.State.SUBMERGEE) {
-         String n = "Ressources/Submerge.png";
-         this.newFrame(n, x, y, 1, g);
-
-         } else {
-         String n = "Ressources/Normal.png";
-         this.newFrame(n, x, y, 1, g);
-
-         }
+         this.newFrame(n, x, y, cnt, g);
     }
-    }
+
     public void newFrame(String n, int x, int y, int c, Graphics g) {
         int step = (n == "Ressources/player1.png" ? x*3 + 25 : x*3);
 
@@ -133,7 +134,4 @@ public class VueGrille extends JPanel implements Observer {
 
     }
 
-//    public static int getTAILLE() {
-//        return TAILLE;
-//    }
 }

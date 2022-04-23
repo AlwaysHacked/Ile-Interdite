@@ -4,6 +4,7 @@ import Modele.Ile;
 import Controlleur.Controlleur;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class VueCommande extends JPanel {
     /**
@@ -20,33 +21,22 @@ public class VueCommande extends JPanel {
          * texte qui doit l'étiqueter.
          * Puis on ajoute ce bouton au panneau [this].
          */
-        JButton boutonAvance = new JButton(">");
-        this.add(boutonAvance);
-        /**
-         * Le bouton, lorsqu'il est cliqué par l'utilisateur, produit un
-         * événement, de classe [ActionEvent].
-         *
-         * On a ici une variante du schéma observateur/observé : un objet
-         * implémentant une interface [ActionListener] va s'inscrire pour
-         * "écouter" les événements produits par le bouton, et recevoir
-         * automatiquements des notifications.
-         * D'autres variantes d'auditeurs pour des événements particuliers :
-         * [MouseListener], [KeyboardListener], [WindowListener].
-         *
-         * Cet observateur va enrichir notre schéma Modèle-Vue d'une couche
-         * intermédiaire Contrôleur, dont l'objectif est de récupérer les
-         * événements produits par la vue et de les traduire en instructions
-         * pour le modèle.
-         * Cette strate intermédiaire est potentiellement riche, et peut
-         * notamment traduire les mêmes événements de différentes façons en
-         * fonction d'un état de l'application.
-         * Ici nous avons un seul bouton réalisant une seule action, notre
-         * contrôleur sera donc particulièrement simple. Cela nécessite
-         * néanmoins la création d'une classe dédiée.
-         */
-        Controlleur ctrl = new Controlleur(ile);
+//        JButton boutonAvance = new JButton(">");
+//        this.add(boutonAvance);
+//        Controlleur ctrl = new Controlleur(ile);
+//        /** Enregistrement du contrôleur comme auditeur du bouton. */
+//        boutonAvance.addActionListener(ctrl);
+
+        JButton nextButton = new JButton("Next Turn");
+        this.add(nextButton);
+
+//        Dimension dim = new Dimension(VueGrille.TAILLE* ile.getSize(),((VueGrille.TAILLE *2+5) * ile.getSize())/4);
+//        this.setPreferredSize(dim);
+
+        Controlleur next = new Controlleur(ile);
         /** Enregistrement du contrôleur comme auditeur du bouton. */
-        boutonAvance.addActionListener(ctrl);
+        nextButton.addActionListener(next);
+
 
         /**
          * Variante : une lambda-expression qui évite de créer une classe

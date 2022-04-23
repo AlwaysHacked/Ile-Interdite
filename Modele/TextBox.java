@@ -18,7 +18,7 @@ public class TextBox extends Observable {
         if (ile.getActionRest() == 0)
             this.text = "Il ne reste plus d'action !";
         else
-            this.text = ile.getActionRest() + " actions restantes";
+            this.text = ile.getActionRest() + ile.getActionRest() > 1 ? " actions restantes" : " action restante";
 
         notifyObservers();
     }
