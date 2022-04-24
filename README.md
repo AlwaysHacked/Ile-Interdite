@@ -43,3 +43,8 @@ Le projet est organisé de manière suivante :
     - `CVue` : Gestion de la fenêtre
     - `VueCommande` : Gestion d'affichage de bouton **Tour Suivant**
     - `VueGrille` : Gestion d'affichage de la grille avec ses composantes (joueurs, case avec ses états, ...)
+
+
+### Diagramme De Classe
+
+![alt text](./diagrammeDeClasse.jpg)
