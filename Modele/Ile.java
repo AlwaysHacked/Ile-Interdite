@@ -135,7 +135,7 @@ public class Ile extends Observable {
 
         /** Verifie si un joueur donné est entouré par des cases Submergées et le tue */
         for(Case c : cases)
-            if(c == null || c.getEtat() == Case.State.SEC || c.getEtat() == Case.State.INONDE) {
+            if(c != null && (c.getEtat() == Case.State.SEC || c.getEtat() == Case.State.INONDE)) {
                 entoure = false;
                 break;
             }
@@ -213,19 +213,27 @@ public class Ile extends Observable {
         this.actionRest = t ? this.actionRest - 1 : this.actionRest;
         notifyObservers();
     }
-    public void fouille(Case c){}
-    public boolean tourSuivant(){
+    public void fouille(Case c){
+        if (joueurs.get(joueurCourant).canCollect(c)
+            && actionRest > 0) {
+            Item tmp = collect(c.type);
+            if (tmp != null) {
+                joueurs.get(joueurCourant).addInventaire(tmp);
+                joueurs.get(joueurCourant).utiliseCle(c.type);
+                actionRest--;
+                System.out.println(joueurs.get(joueurCourant).getStringInventaire());
+            }
+        }
+    }
+    public void tourSuivant(){
         pioche();
         this.joueurCourant = this.joueurCourant == this.nbJoueur - 1 ? 0 : this.joueurCourant+1;
-        System.out.println(joueurs.get(joueurCourant).getStringInventaire());
         this.actionRest = 3;
-        this.inondation();
-
+        //this.inondation();
+        System.out.println(joueurs.get(joueurCourant).getStringInventaire());
 //        afficheGrille();
         this.verifieJoueurs();
         notifyObservers();
-
-        return true;
     }
 
     private void pioche(){

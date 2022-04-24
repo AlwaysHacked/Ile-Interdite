@@ -92,22 +92,15 @@ public class Joueur extends Observable {
         return false;
     }
 
-    public boolean collect(){
-        if (canCollect(position.type)){
-            Item tmp = ile.collect(position.type);
-            if (tmp == null)
-                return false;
-            inventaire.add(tmp);
-            while (inventaire.remove(new Cle(position.type)));
-            return true;
-        }
-        return false;
+    public void utiliseCle(Item.Type type){
+        inventaire.removeIf(cle -> cle instanceof Cle && cle.type == type);
     }
 
-    private boolean canCollect(Item.Type type){
+    protected boolean canCollect(Case c){
+        if (c != position) return false;
         for (Item item : inventaire)
             if (item instanceof Cle)
-                if (item.type == type)
+                if (item.type == c.type)
                     return true;
         return false;
     }

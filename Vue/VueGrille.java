@@ -96,7 +96,7 @@ public class VueGrille extends JPanel implements Observer {
 
 //        System.out.println(c);
         if (c.getEtat() == Case.State.INONDE)
-            n = "Ressources/Innonde.gif";
+            n = "Ressources/case_innonde.png";
         else if (c.getEtat() == Case.State.SUBMERGEE)
             n = "Ressources/case_submerge.png";
         else if (c.getEtat() == Case.State.SEC)
