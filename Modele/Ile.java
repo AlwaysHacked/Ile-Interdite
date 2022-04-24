@@ -135,7 +135,7 @@ public class Ile extends Observable {
 
         /** Verifie si un joueur donné est entouré par des cases Submergées et le tue */
         for(Case c : cases)
-            if(c.getEtat() == Case.State.SEC || c.getEtat() == Case.State.INONDE) {
+            if(c == null || c.getEtat() == Case.State.SEC || c.getEtat() == Case.State.INONDE) {
                 entoure = false;
                 break;
             }

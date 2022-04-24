@@ -19,7 +19,7 @@ public class VueGrille extends JPanel implements Observer {
     /** Les cases sont stockes ici */
     private ArrayList<JLabel> jl = new ArrayList<>();
     /** Définition d'une taille (en pixels) pour l'affichage des cellules. */
-    public final static int TAILLE = 40;
+    public final static int TAILLE = 20;
 
     /** Constructeur. */
     public VueGrille(Ile ile) {
@@ -96,7 +96,7 @@ public class VueGrille extends JPanel implements Observer {
 
 //        System.out.println(c);
         if (c.getEtat() == Case.State.INONDE)
-            n = "Ressources/case_innonde.png";
+            n = "Ressources/Innonde.gif";
         else if (c.getEtat() == Case.State.SUBMERGEE)
             n = "Ressources/case_submerge.png";
         else if (c.getEtat() == Case.State.SEC)
