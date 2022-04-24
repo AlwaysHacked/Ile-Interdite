@@ -5,7 +5,7 @@ import Obs.Observable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Case extends Observable {
+public class Case  {
     public enum State {SEC, INONDE, SUBMERGEE;
 
         @Override
@@ -67,7 +67,7 @@ public class Case extends Observable {
     }
     public void seche(){
         this.etat = State.SEC;
-        notifyObservers();
+//        notifyObservers();
     }
     public boolean setJoueur(Joueur j){
         if(this.joueur != null)

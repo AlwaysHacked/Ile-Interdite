@@ -29,7 +29,7 @@ Le projet est organisé de manière suivante :
 
 - **`Modele`** : Ce dossier-ci contient les fichiers suivants :
   - `Artefact` : Gestion des artefacts, hérite de `Item`
-  - `Case` : *Hérite d'`Observable`*. Gestion des cases, ainsi que de l'énumération State : **SEC**, **INONDE**, **SUBMERGE**
+  - `Case` : Gestion des cases, ainsi que de l'énumération State : **SEC**, **INONDE**, **SUBMERGE**
   - `Cle` : Gestion des clés, hérite de `Item` également
   - `Ile` : *Hérite d'`Observable`*. La grille du jeu, le fichier le plus chargé
   - `Item` : Classe mère de `Artefact` et de `Cle`, contient également la classe énumerée **Type**

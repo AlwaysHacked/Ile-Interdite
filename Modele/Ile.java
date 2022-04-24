@@ -25,6 +25,8 @@ public class Ile extends Observable {
     private ArrayList<Item> clés = new ArrayList<>();
     private int piocheMorte = 8;
 
+    private boolean enJeu;
+
     /** Constructeur et méthode pour contructeur */
     public Ile(){
         new Ile(this.defaultGrilleSize);
@@ -40,6 +42,7 @@ public class Ile extends Observable {
         initSpecialCase(1);
         this.actionRest = 3;
         this.joueurCourant = rand.nextInt(nbJoueur);
+        this.enJeu = true;
     }
 
     private void initGrille(){
@@ -120,12 +123,24 @@ public class Ile extends Observable {
     public int getJoueur() {
         return joueurCourant;
     }
+    public boolean estEnJeu(){
+        return enJeu;
+    }
+
+    public int getArtSize(){
+        return this.artefacts.size();
+    }
+
+    /** Setter */
+    private void fin(){
+        enJeu = false;
+    }
 
     /** Les vérifications sur les joueurs à chaque tour de jeu
      * Utilise une fonction auxiliaire verifieJoueur(Joueur) en itérant sur chaque joueur */
     private void verifieJoueurs(){
         for (Joueur j :this.joueurs)
-            if(j.estEnVie())
+            if(!j.estEvacue())
                 this.verifieJoueur(j);
     }
 
@@ -140,21 +155,22 @@ public class Ile extends Observable {
                 break;
             }
 
-        if(entoure) {
-            j.meurt();
+        if(entoure) { // mort, fin de jeu
             System.out.println("Joueur Mort : " + j.getNumero());
+            System.out.println("Perdu, dommage");
+            this.fin();
             return;
         }
 
         /** Si le joueur n'est pas entouré, vérifie s'il est lui même dans une case Submergée et le déplace */
         if(j.getPosition().getEtat() == Case.State.SUBMERGEE) {
-
             for (Case c : cases)
                 if (c.getEtat() != Case.State.SUBMERGEE) {
                     this.movePlayer(j, c);
                     break;
                 }
         }
+
     }
     public int getActionRest() {
         return actionRest;
@@ -192,18 +208,29 @@ public class Ile extends Observable {
         return cases;
     }
 
-    /** Méthode pour le controlleur */
-    public void movePlayer(Case c){
-        boolean t = this.joueurs.get(this.joueurCourant).move(c);
-        this.actionRest = t ? this.actionRest - 1 : this.actionRest;
-        notifyObservers();
-        System.out.println(this.actionRest);
+    /** Vérifie si un joueur est arrivé (lui-même ou par chance d'inondation) à l'helico et peut être évacué */
+
+    private void evacuation(){
+        for(Joueur j : this.joueurs)
+            if(!j.estEvacue() && j.evacuable())
+                j.evacuation();
     }
 
-    private void movePlayer(Joueur j, Case c){
-        boolean t = this.joueurs.get(j.getNumero()).move(c);
+
+    /** Méthode pour le controlleur */
+    public void movePlayer(Case c){
+        boolean t = movePlayer(this.joueurs.get(this.joueurCourant), c);
+        if (!t)
+            return;
+
+        this.actionRest -= 1;
+
         notifyObservers();
-        System.out.println(this.actionRest);
+        System.out.println("Il reste : " + this.actionRest + "action(s)");
+    }
+
+    private boolean movePlayer(Joueur j, Case c){
+        return this.joueurs.get(j.getNumero()).move(c);
     }
 
 
@@ -229,8 +256,10 @@ public class Ile extends Observable {
     public void tourSuivant(){
         pioche();
         this.joueurCourant = this.joueurCourant == this.nbJoueur - 1 ? 0 : this.joueurCourant+1;
+        if(this.joueurs.get(this.joueurCourant).estEvacue())
+            tourSuivant();
         this.actionRest = 3;
-        //this.inondation();
+        this.inondation();
         System.out.println(joueurs.get(joueurCourant).getStringInventaire());
 //        afficheGrille();
         this.verifieJoueurs();

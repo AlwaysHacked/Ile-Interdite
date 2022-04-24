@@ -45,7 +45,7 @@ public class ControlleurCase implements MouseListener {
     public void mousePressed(MouseEvent e) {
         // TODO Auto-generated method stub
 
-        if(SwingUtilities.isLeftMouseButton(e) && ile.getActionRest() > 0)
+        if(SwingUtilities.isLeftMouseButton(e) && ile.estEnJeu() && ile.getActionRest() > 0)
 //            System.out.print(c.toString());
             this.pop.show(e.getComponent(), e.getX(), e.getY());;
     }

@@ -19,7 +19,7 @@ public class VueGrille extends JPanel implements Observer {
     /** Les cases sont stockes ici */
     private ArrayList<JLabel> jl = new ArrayList<>();
     /** Définition d'une taille (en pixels) pour l'affichage des cellules. */
-    public final static int TAILLE = 20;
+    public final static int TAILLE = 40;
 
     /** Constructeur. */
     public VueGrille(Ile ile) {
@@ -122,7 +122,7 @@ public class VueGrille extends JPanel implements Observer {
 
         this.newFrame(n, x, y, cnt, g);
 
-        if (c.contientJoueur() && c.getJoueur().estEnVie()) {
+        if (c.contientJoueur() && !c.getJoueur().estEvacue()) {
             /** Pour indiquer le joueur courant */
             if(c.getJoueur().getNumero() == ile.getJoueur())
                 this.newFrame("Ressources/case_joueur.png", x, y, cnt, g);

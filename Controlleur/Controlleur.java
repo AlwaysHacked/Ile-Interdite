@@ -21,7 +21,8 @@ public class Controlleur implements ActionListener {
      * méthode [avance] du modèle.
      */
     public void actionPerformed(ActionEvent e) {
-        ile.tourSuivant();
+        if(ile.estEnJeu())
+            ile.tourSuivant();
     }
 }
 /** Fin du contrôleur. */

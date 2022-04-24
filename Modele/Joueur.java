@@ -4,18 +4,18 @@ import Obs.Observable;
 
 import java.util.ArrayList;
 
-public class Joueur extends Observable {
+public class Joueur {
     private Ile ile;
     private Case position;
     private ArrayList<Item> inventaire = new ArrayList<>();
     private int numero;
-    private boolean enVie;
+    private boolean evacue;
 
     public Joueur(Ile ile, Case position, int numero) {
         this.ile = ile;
         this.position = position;
         this.numero = numero;
-        this.enVie = true;
+        this.evacue = false;
     }
 
     /** Getter */
@@ -54,8 +54,8 @@ public class Joueur extends Observable {
         if (item.type != Item.Type.DECHET)
             inventaire.add(item);
     }
-    public void meurt(){
-        this.enVie = false;
+    public void evacuation(){
+        this.evacue = true;
     }
     public void utiliseCle(Item.Type type){
         inventaire.removeIf(cle -> cle instanceof Cle && cle.type == type);
@@ -97,9 +97,15 @@ public class Joueur extends Observable {
         }
         return false;
     }
-    public boolean estEnVie(){
-        return enVie;
+    public boolean estEvacue(){
+        return this.evacue;
     }
+
+    public boolean evacuable(){
+        return this.ile.getArtSize() == 0 &&
+                this.position.getType() == Item.Type.HELIPORT;
+    }
+
     protected boolean canCollect(Case c){
         if (c != position) return false;
         for (Item item : inventaire)
