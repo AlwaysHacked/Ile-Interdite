@@ -9,6 +9,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 import Modele.Artefact;
+import Modele.Item;
 import Obs.Observer;
 
 
@@ -18,7 +19,7 @@ public class VueGrille extends JPanel implements Observer {
     /** Les cases sont stockes ici */
     private ArrayList<JLabel> jl = new ArrayList<>();
     /** Définition d'une taille (en pixels) pour l'affichage des cellules. */
-    public final static int TAILLE = 30;
+    public final static int TAILLE = 40;
 
     /** Constructeur. */
     public VueGrille(Ile ile) {
@@ -31,7 +32,7 @@ public class VueGrille extends JPanel implements Observer {
          * taille d'affichage.
          */
         Dimension dim = new Dimension(TAILLE*ile.getSizeGrille() * 3,
-                TAILLE*ile.getSizeGrille() * 3);
+                TAILLE*ile.getSizeGrille() * 2 + 3 * this.TAILLE);
         this.setPreferredSize(dim);
         for (int i = 0; i < ile.getSizeGrille(); i++) {
             for (int j = 0; j < ile.getSizeGrille(); j++) {
@@ -92,49 +93,63 @@ public class VueGrille extends JPanel implements Observer {
      */
     private void paint(Graphics g, Case c, int x, int y, int cnt) {
         String n = null;
+
 //        System.out.println(c);
-        if(c.getType() == null) {
-            if (c.getEtat() == Case.State.INONDE)
-                n = "Ressources/Innonde.png";
-            else if (c.getEtat() == Case.State.SUBMERGEE)
-                n = "Ressources/Submerge.png";
-            else
-                n = "Ressources/Normal.png";
-        }
-        else {
-            if (c.getType() != null) {
-                n = "Ressources/Normal2.png";
-            }
-//                n = "Ressources/art
-        }
+        if (c.getEtat() == Case.State.INONDE)
+            n = "Ressources/case_innonde.png";
+        else if (c.getEtat() == Case.State.SUBMERGEE)
+            n = "Ressources/case_submerge.png";
+        else if (c.getEtat() == Case.State.SEC)
+            n = "Ressources/case_normal.png";
+
         this.newFrame(n, x, y, cnt, g);
 
-        if(c.contientJoueur()){
-            /** Pour indiquer le joueur courant */
-            if(c.getJoueur().getNumero() == ile.getJoueur()) {
-                n = "Ressources/move_3.png";
-                this.newFrame(n, x, y, cnt, g);
+        if (c.getType() != null) {
+            if (c.getType() == Item.Type.FEU) {
+                n = "Ressources/art_fire.png";
             }
+            else if(c.getType() == Item.Type.AIR) {
+                n = "Ressources/art_wind.png";
+            }
+            else if(c.getType() == Item.Type.TERRE) {
+                n = "Ressources/art_earth.png";
+            }
+            else if(c.getType() == Item.Type.EAU)
+                n = "Ressources/art_water.png";
+            else if(c.getType() == Item.Type.HELIPORT)
+                n = "Ressources/heliport.png";
+        }
 
-            n = "Ressources/player1.png";
+        this.newFrame(n, x, y, cnt, g);
+
+        if (c.contientJoueur()) {
+            /** Pour indiquer le joueur courant */
+            if(c.getJoueur().getNumero() == ile.getJoueur())
+                this.newFrame("Ressources/case_joueur.png", x, y, cnt, g);
+            n = "Ressources/player" + c.getJoueur().getNumero() + ".png";
             this.newFrame(n, x, y, cnt, g);
-       }
 
+        }
     }
 
 
     public void newFrame(String n, int x, int y, int c, Graphics g) {
-        int step = (n == "Ressources/player1.png" ? x*3 + 25 : x*3);
+        int step = x*3;
+        int abs = step + this.TAILLE/2;
+        int ord = (ile.getSize() * 2 * TAILLE) - y*2 - TAILLE*2;
 
 //        System.out.println(n);
         ImageIcon temp = new ImageIcon();
         ImageIcon temp2 = new ImageIcon(this.getClass().getResource(n));
 
-        int width = (n == "Ressources/player1.png" ? TAILLE : TAILLE * 2);
+        int width = (n.contains("player") || n.contains("art") ? TAILLE : TAILLE * 2);
 
-        g.drawImage(temp2.getImage(), step, (ile.getSize() * 2 * TAILLE) - y*2 - TAILLE*2,
-                width + (n == "Ressources/player1.png" ? 0 : 20),
-                width, this);
+//        g.drawImage()
+        g.drawImage(temp2.getImage(),
+                n.contains("player") ? abs - this.TAILLE/3 : n.contains("art") ? abs + this.TAILLE/3 : step, // abs
+                n.contains("art")||n.contains("player") ? ord - this.TAILLE/4 : ord, // ord
+                width + (n.contains("player") || n.contains("art") ? this.TAILLE/3 : this.TAILLE/2), // largeur
+                width + (n.contains("player") || n.contains("art") ? this.TAILLE/2 : 0), this); // longueur
 
         // JLabel object = new JLabel();
         jl.get(c).setBounds(step, (ile.getSize() *2* TAILLE) - y*2 - TAILLE*2,

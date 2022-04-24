@@ -116,7 +116,7 @@ public class Case extends Observable {
     @Override
     public String toString() {
         String s = etat.toString() ;
-        s += (this.joueur == null ? " " : "j");
+        s += (this.joueur == null ? " " : this.joueur.getNumero());
         return s;
     }
 }
