@@ -46,13 +46,19 @@ public class Joueur extends Observable {
         return cs;
     }
 
-    /** Setter */
+    /** Setter et modificateur */
     public void setPosition(Case position) {
         this.position = position;
     }
     public void addInventaire(Item item) {
         if (item.type != Item.Type.DECHET)
             inventaire.add(item);
+    }
+    public void meurt(){
+        this.enVie = false;
+    }
+    public void utiliseCle(Item.Type type){
+        inventaire.removeIf(cle -> cle instanceof Cle && cle.type == type);
     }
 
     /** Test */
@@ -91,11 +97,9 @@ public class Joueur extends Observable {
         }
         return false;
     }
-
-    public void utiliseCle(Item.Type type){
-        inventaire.removeIf(cle -> cle instanceof Cle && cle.type == type);
+    public boolean estEnVie(){
+        return enVie;
     }
-
     protected boolean canCollect(Case c){
         if (c != position) return false;
         for (Item item : inventaire)
@@ -105,11 +109,4 @@ public class Joueur extends Observable {
         return false;
     }
 
-    public boolean estEnVie(){
-        return enVie;
-    }
-
-    public void meurt(){
-        this.enVie = false;
-    }
 }

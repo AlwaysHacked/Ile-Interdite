@@ -222,6 +222,7 @@ public class Ile extends Observable {
                 joueurs.get(joueurCourant).utiliseCle(c.type);
                 actionRest--;
                 System.out.println(joueurs.get(joueurCourant).getStringInventaire());
+                System.out.println(joueurCourant);
             }
         }
     }
