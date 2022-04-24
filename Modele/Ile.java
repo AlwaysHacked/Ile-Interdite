@@ -174,6 +174,7 @@ public class Ile extends Observable {
         this.actionRest = t ? this.actionRest - 1 : this.actionRest;
         notifyObservers();
     }
+    public void fouille(Case c){}
     public boolean tourSuivant(){
         pioche();
         this.joueurCourant = this.joueurCourant == this.nbJoueur - 1 ? 0 : this.joueurCourant+1;
