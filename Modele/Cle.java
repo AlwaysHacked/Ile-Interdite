@@ -5,6 +5,6 @@ public class Cle extends Item{
 
     @Override
     public String toString() {
-        return "Clé " + super.getType().toString();
+        return " Clé " + super.getType().toString();
     }
 }
