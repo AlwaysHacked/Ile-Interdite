@@ -67,7 +67,7 @@ public class Joueur extends Observable {
         if (cs != null && cs.canCross()) {
             if(!cs.setJoueur(this))
                 return false;
-            this.position.leveJoueur();
+            this.position.enleveJoueur();
             this.position = cs;
             return true;
         }

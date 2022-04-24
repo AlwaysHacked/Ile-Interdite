@@ -19,7 +19,7 @@ public class Ile extends Observable {
     private int actionRest;
     private ArrayList<Joueur> joueurs = new ArrayList<>();
 
-    private ArrayList<Item> stock = new ArrayList<>();
+    private ArrayList<Item> artefacts = new ArrayList<>();
 
     /** Constructeur et méthode pour contructeur */
     public Ile(){
@@ -33,6 +33,7 @@ public class Ile extends Observable {
         caseLinking();
         makeStock();
         initJoueur(nbJoueur);
+        initSpecialCase(1);
         this.actionRest = 3;
         this.joueurCourant = rand.nextInt(nbJoueur);
     }
@@ -77,10 +78,10 @@ public class Ile extends Observable {
         }
     }
     private void makeStock() {
-        stock.add(new Artefact(Item.Type.EAU));
-        stock.add(new Artefact(Item.Type.TERRE));
-        stock.add(new Artefact(Item.Type.FEU));
-        stock.add(new Artefact(Item.Type.AIR));
+        artefacts.add(new Artefact(Item.Type.EAU));
+        artefacts.add(new Artefact(Item.Type.TERRE));
+        artefacts.add(new Artefact(Item.Type.FEU));
+        artefacts.add(new Artefact(Item.Type.AIR));
     }
     private void initJoueur(int nb){
         ArrayList<Case> cases = casesAleat(nb);
@@ -88,6 +89,12 @@ public class Ile extends Observable {
             this.joueurs.add(new Joueur(this, c, joueurs.size()));
             c.setJoueur(this.joueurs.get(this.joueurs.size() - 1));
         }
+    }
+    private void initSpecialCase(int nb){
+        ArrayList<Case> cases = casesAleat(nb * 4 + 1);
+        for (int i = 1; i < cases.size(); i++)
+            cases.get(i).setType(artefacts.get(i%4).type);
+        cases.get(0).setType(Item.Type.HELIPORT);
     }
 
     /** Getter */
@@ -107,7 +114,7 @@ public class Ile extends Observable {
 
     /** Créé une liste de nb cases différentes et non submergées */
     private ArrayList<Case> casesAleat(int nb) {
-        boolean putIntoList = false;
+        boolean putIntoList;
         ArrayList<int[]> couples = new ArrayList<>();
         ArrayList<Case> cases = new ArrayList<>();
 
@@ -144,7 +151,7 @@ public class Ile extends Observable {
     /** Méthode pour le controlleur */
     public void movePlayer(Case c){
         boolean t = this.joueurs.get(this.joueurCourant).move(c);
-        this.actionRest = t == true ? this.actionRest - 1 : this.actionRest;
+        this.actionRest = t ? this.actionRest - 1 : this.actionRest;
         notifyObservers();
         System.out.println(this.actionRest);
 //        return t;
@@ -156,9 +163,9 @@ public class Ile extends Observable {
         notifyObservers();
     }
     public Item collect(Item.Type type){
-        for (Item artefact:stock)
+        for (Item artefact: artefacts)
             if (artefact.type == type) {
-                stock.remove(artefact);
+                artefacts.remove(artefact);
                 return artefact;
             }
         return null;
