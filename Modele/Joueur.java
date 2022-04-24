@@ -16,26 +16,22 @@ public class Joueur extends Observable {
         this.numero = numero;
     }
 
+    /** Getter */
     public Case getPosition() {
         return position;
     }
-
-    public void setPosition(Case position) {
-        this.position = position;
-    }
-
     public ArrayList<Item> getInventaire() {
         return inventaire;
     }
-
-    public void setInventaire(ArrayList<Item> inventaire) {
-        this.inventaire = inventaire;
+    public String getStringInventaire() {
+        String tmp = "Inventaire de joueur : " + numero;
+        for (Item item : inventaire)
+            tmp += item.toString();
+        return tmp;
     }
-
     public int getNumero() {
         return numero;
     }
-
     public Case getDirection(char c){
         Case cs;
         switch (c){
@@ -48,6 +44,16 @@ public class Joueur extends Observable {
         return cs;
     }
 
+    /** Setter */
+    public void setPosition(Case position) {
+        this.position = position;
+    }
+    public void addInventaire(Item item) {
+        if (item.type != Item.Type.DECHET)
+            inventaire.add(item);
+    }
+
+    /** Test */
     public boolean caseVoisine(Case cs){
         ArrayList<Case> voisins = this.position.getVoisins();
         if(!voisins.contains(cs) && cs != this.position)
@@ -56,12 +62,10 @@ public class Joueur extends Observable {
         return true;
 
     }
-
     public boolean move(char c){
         Case cs = getDirection(c);
         return move(cs);
     }
-
     public boolean move(Case cs){
         if(!caseVoisine(cs))    return false;
         if (cs != null && cs.canCross()) {
@@ -73,12 +77,10 @@ public class Joueur extends Observable {
         }
         return false;
     }
-
     public boolean dry(char c){
         Case cs = c == 'x' ? this.position : getDirection(c);
         return dry(cs);
     }
-
     public boolean dry(Case cs){
         if(!caseVoisine(cs))    return false;
         if(cs != null && cs.canDry()) {

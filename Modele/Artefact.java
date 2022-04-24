@@ -7,6 +7,6 @@ public class Artefact extends Item{
 
     @Override
     public String toString() {
-        return "Clé " + super.getType().toString();
+        return " Artéfact " + super.getType().toString();
     }
 }

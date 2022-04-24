@@ -6,20 +6,24 @@ import java.util.Random;
 import java.util.ArrayList;
 
 public class Ile extends Observable {
-//    size is always >2, otherwise it's not interesting
-//    sizeGrille, Serge removed `final` for instance to be able to write 2 constructors
+    /** Attributs de la grille */
     private int sizeGrille;
     private final int defaultGrilleSize = 6;
     private Case[][] Grille;
 
+    /** Génération de l'aléatoire */
     Random rand = new Random();
 
+    /** Attributs des joueurs */
     private final int nbJoueur = 4;
     private int joueurCourant;
     private int actionRest;
     private ArrayList<Joueur> joueurs = new ArrayList<>();
 
+    /** Attributs des stocks */
     private ArrayList<Item> artefacts = new ArrayList<>();
+    private ArrayList<Item> clés = new ArrayList<>();
+    private int piocheMorte = 8;
 
     /** Constructeur et méthode pour contructeur */
     public Ile(){
@@ -31,7 +35,7 @@ public class Ile extends Observable {
         this.Grille = new Case[s][s];
         initGrille();
         caseLinking();
-        makeStock();
+        makeStock(1);
         initJoueur(nbJoueur);
         initSpecialCase(1);
         this.actionRest = 3;
@@ -77,11 +81,19 @@ public class Ile extends Observable {
             }
         }
     }
-    private void makeStock() {
+    private void makeStock(int nb) {
         artefacts.add(new Artefact(Item.Type.EAU));
         artefacts.add(new Artefact(Item.Type.TERRE));
         artefacts.add(new Artefact(Item.Type.FEU));
         artefacts.add(new Artefact(Item.Type.AIR));
+        for (int i = 0; i < nb; i++) {
+            clés.add(new Cle(Item.Type.EAU));
+            clés.add(new Cle(Item.Type.TERRE));
+            clés.add(new Cle(Item.Type.FEU));
+            clés.add(new Cle(Item.Type.AIR));
+        }
+        for (int i = 0; i < piocheMorte; i++)
+            clés.add(new Cle(Item.Type.DECHET));
     }
     private void initJoueur(int nb){
         ArrayList<Case> cases = casesAleat(nb);
@@ -137,9 +149,9 @@ public class Ile extends Observable {
             if (putIntoList )
                 couples.add(c);
         }
-        for (int i = -1; ++i < nb;)
-            System.out.println("Cases aleat :\t" + couples.get(i)[0] + " " + couples.get(i)[1]);
-        System.out.println();
+//        for (int i = -1; ++i < nb;)
+//            System.out.println("Cases aleat :\t" + couples.get(i)[0] + " " + couples.get(i)[1]);
+//        System.out.println();
 
         for (int i = -1; ++i < nb;)
             cases.add(getCase(couples.get(i)[0], couples.get(i)[1]));
@@ -162,6 +174,22 @@ public class Ile extends Observable {
         this.actionRest = t ? this.actionRest - 1 : this.actionRest;
         notifyObservers();
     }
+    public boolean tourSuivant(){
+        pioche();
+        this.joueurCourant = this.joueurCourant == this.nbJoueur - 1 ? 0 : this.joueurCourant+1;
+        System.out.println(joueurs.get(joueurCourant).getStringInventaire());
+        this.actionRest = 3;
+        this.inondation();
+
+//        afficheGrille();
+        notifyObservers();
+        return true;
+    }
+
+    private void pioche(){
+        if(clés.size() > 0)
+            joueurs.get(joueurCourant).addInventaire(clés.remove(rand.nextInt(clés.size())));
+    }
     public Item collect(Item.Type type){
         for (Item artefact: artefacts)
             if (artefact.type == type) {
@@ -170,19 +198,10 @@ public class Ile extends Observable {
             }
         return null;
     }
-    public void inondation() {
+    private void inondation() {
         ArrayList<Case> cases = casesAleat(3);
         for(Case c : cases)
             c.inonde();
-    }
-    public boolean tourSuivant(){
-        this.joueurCourant = this.joueurCourant == this.nbJoueur - 1 ? 0 : this.joueurCourant+1;
-        System.out.println("Num de joueur : " + this.joueurCourant);
-        this.actionRest = 3;
-        this.inondation();
-        notifyObservers();
-        this.afficheGrille();
-        return true;
     }
 
     /** Affichage dans la console */
