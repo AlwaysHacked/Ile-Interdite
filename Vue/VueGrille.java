@@ -9,6 +9,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 import Modele.Artefact;
+import Modele.Item;
 import Obs.Observer;
 
 
