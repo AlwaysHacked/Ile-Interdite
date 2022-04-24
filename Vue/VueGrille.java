@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+import Modele.Artefact;
 import Obs.Observer;
 
 
@@ -92,13 +93,18 @@ public class VueGrille extends JPanel implements Observer {
     private void paint(Graphics g, Case c, int x, int y, int cnt) {
         String n;
 //        System.out.println(c);
-        if (c.getEtat() == Case.State.INONDE)
-            n = "Ressources/Innonde.png";
-        else if (c.getEtat() == Case.State.SUBMERGEE)
-            n = "Ressources/Submerge.png";
-        else
-            n = "Ressources/Normal.png";
-
+        if(c.getType() == null) {
+            if (c.getEtat() == Case.State.INONDE)
+                n = "Ressources/Innonde.png";
+            else if (c.getEtat() == Case.State.SUBMERGEE)
+                n = "Ressources/Submerge.png";
+            else
+                n = "Ressources/Normal.png";
+        }
+        else {
+            if (c.getType() == Artefact.Type)
+                n = "Ressources/art
+        }
         this.newFrame(n, x, y, cnt, g);
 
         if(c.contientJoueur()){
