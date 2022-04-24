@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 public class JoueurTest {
     Ile i = new Ile(10);
     Case c = i.getCase(5,5);
-    Joueur j = new Joueur(i, c);
+    Joueur j = new Joueur(i, c, 0);
 
     @Test
     public void basicTest(){

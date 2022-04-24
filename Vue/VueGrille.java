@@ -91,7 +91,7 @@ public class VueGrille extends JPanel implements Observer {
      * Ceci serait impossible si [Cellule] était déclarée privée dans [ile].
      */
     private void paint(Graphics g, Case c, int x, int y, int cnt) {
-        String n;
+        String n = null;
 //        System.out.println(c);
         if(c.getType() == null) {
             if (c.getEtat() == Case.State.INONDE)
@@ -102,15 +102,25 @@ public class VueGrille extends JPanel implements Observer {
                 n = "Ressources/Normal.png";
         }
         else {
-            if (c.getType() == Artefact.Type)
-                n = "Ressources/art
+            if (c.getType() != null) {
+                n = "Ressources/Normal2.png";
+            }
+//                n = "Ressources/art
         }
         this.newFrame(n, x, y, cnt, g);
 
         if(c.contientJoueur()){
+            /** Pour indiquer le joueur courant */
+            if(c.getJoueur().getNumero() == ile.getJoueur()) {
+                n = "Ressources/move_3.png";
+                System.out.println("sd");
+                this.newFrame(n, x, y, cnt, g);
+            }
+
             n = "Ressources/player1.png";
             this.newFrame(n, x, y, cnt, g);
        }
+
     }
 
 

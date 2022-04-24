@@ -8,10 +8,12 @@ public class Joueur extends Observable {
     private Ile ile;
     private Case position;
     private ArrayList<Item> inventaire = new ArrayList<>();
+    private int numero;
 
-    public Joueur(Ile ile, Case position) {
+    public Joueur(Ile ile, Case position, int numero) {
         this.ile = ile;
         this.position = position;
+        this.numero = numero;
     }
 
     public Case getPosition() {
@@ -28,6 +30,10 @@ public class Joueur extends Observable {
 
     public void setInventaire(ArrayList<Item> inventaire) {
         this.inventaire = inventaire;
+    }
+
+    public int getNumero() {
+        return numero;
     }
 
     public Case getDirection(char c){
