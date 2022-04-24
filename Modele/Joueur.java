@@ -9,11 +9,13 @@ public class Joueur extends Observable {
     private Case position;
     private ArrayList<Item> inventaire = new ArrayList<>();
     private int numero;
+    private boolean enVie;
 
     public Joueur(Ile ile, Case position, int numero) {
         this.ile = ile;
         this.position = position;
         this.numero = numero;
+        this.enVie = true;
     }
 
     /** Getter */
@@ -108,5 +110,13 @@ public class Joueur extends Observable {
                 if (item.type == type)
                     return true;
         return false;
+    }
+
+    public boolean estEnVie(){
+        return enVie;
+    }
+
+    public void meurt(){
+        this.enVie = false;
     }
 }

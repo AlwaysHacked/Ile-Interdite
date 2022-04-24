@@ -122,7 +122,7 @@ public class VueGrille extends JPanel implements Observer {
 
         this.newFrame(n, x, y, cnt, g);
 
-        if (c.contientJoueur()) {
+        if (c.contientJoueur() && c.getJoueur().estEnVie()) {
             /** Pour indiquer le joueur courant */
             if(c.getJoueur().getNumero() == ile.getJoueur())
                 this.newFrame("Ressources/case_joueur.png", x, y, cnt, g);

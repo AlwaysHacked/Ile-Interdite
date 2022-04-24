@@ -120,6 +120,42 @@ public class Ile extends Observable {
     public int getJoueur() {
         return joueurCourant;
     }
+
+    /** Les vérifications sur les joueurs à chaque tour de jeu
+     * Utilise une fonction auxiliaire verifieJoueur(Joueur) en itérant sur chaque joueur */
+    private void verifieJoueurs(){
+        for (Joueur j :this.joueurs)
+            if(j.estEnVie())
+                this.verifieJoueur(j);
+    }
+
+    private void verifieJoueur(Joueur j){
+        ArrayList<Case> cases = j.getPosition().getVoisins();
+        boolean entoure = true;
+
+        /** Verifie si un joueur donné est entouré par des cases Submergées et le tue */
+        for(Case c : cases)
+            if(c.getEtat() == Case.State.SEC || c.getEtat() == Case.State.INONDE) {
+                entoure = false;
+                break;
+            }
+
+        if(entoure) {
+            j.meurt();
+            System.out.println("Joueur Mort : " + j.getNumero());
+            return;
+        }
+
+        /** Si le joueur n'est pas entouré, vérifie s'il est lui même dans une case Submergée et le déplace */
+        if(j.getPosition().getEtat() == Case.State.SUBMERGEE) {
+
+            for (Case c : cases)
+                if (c.getEtat() != Case.State.SUBMERGEE) {
+                    this.movePlayer(j, c);
+                    break;
+                }
+        }
+    }
     public int getActionRest() {
         return actionRest;
     }
@@ -149,9 +185,6 @@ public class Ile extends Observable {
             if (putIntoList )
                 couples.add(c);
         }
-//        for (int i = -1; ++i < nb;)
-//            System.out.println("Cases aleat :\t" + couples.get(i)[0] + " " + couples.get(i)[1]);
-//        System.out.println();
 
         for (int i = -1; ++i < nb;)
             cases.add(getCase(couples.get(i)[0], couples.get(i)[1]));
@@ -159,15 +192,21 @@ public class Ile extends Observable {
         return cases;
     }
 
-
     /** Méthode pour le controlleur */
     public void movePlayer(Case c){
         boolean t = this.joueurs.get(this.joueurCourant).move(c);
         this.actionRest = t ? this.actionRest - 1 : this.actionRest;
         notifyObservers();
         System.out.println(this.actionRest);
-//        return t;
     }
+
+    private void movePlayer(Joueur j, Case c){
+        boolean t = this.joueurs.get(j.getNumero()).move(c);
+        notifyObservers();
+        System.out.println(this.actionRest);
+    }
+
+
     public void seche(Case c){ // verifier si la case donnee est adjacente
         boolean t = this.joueurs.get(this.joueurCourant).dry(c);
         if (t) System.out.println("sec");
@@ -183,7 +222,9 @@ public class Ile extends Observable {
         this.inondation();
 
 //        afficheGrille();
+        this.verifieJoueurs();
         notifyObservers();
+
         return true;
     }
 
