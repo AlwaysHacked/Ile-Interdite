@@ -113,7 +113,6 @@ public class VueGrille extends JPanel implements Observer {
             /** Pour indiquer le joueur courant */
             if(c.getJoueur().getNumero() == ile.getJoueur()) {
                 n = "Ressources/move_3.png";
-                System.out.println("sd");
                 this.newFrame(n, x, y, cnt, g);
             }
 
