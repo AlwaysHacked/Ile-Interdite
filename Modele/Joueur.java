@@ -42,13 +42,26 @@ public class Joueur extends Observable {
         return cs;
     }
 
+    public boolean caseVoisine(Case cs){
+        ArrayList<Case> voisins = this.position.getVoisins();
+        if(!voisins.contains(cs) && cs != this.position)
+            return false;
+        System.out.println("Case voisine");
+        return true;
+
+    }
+
     public boolean move(char c){
         Case cs = getDirection(c);
         return move(cs);
     }
 
     public boolean move(Case cs){
+        if(!caseVoisine(cs))    return false;
         if (cs != null && cs.canCross()) {
+            if(!cs.setJoueur(this))
+                return false;
+            this.position.leveJoueur();
             this.position = cs;
             return true;
         }
@@ -61,6 +74,7 @@ public class Joueur extends Observable {
     }
 
     public boolean dry(Case cs){
+        if(!caseVoisine(cs))    return false;
         if(cs != null && cs.canDry()) {
             cs.seche();
             return true;

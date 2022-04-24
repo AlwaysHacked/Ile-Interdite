@@ -2,6 +2,9 @@ package Modele;
 
 import Obs.Observable;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Case extends Observable {
     public enum State {SEC, INONDE, SUBMERGEE;
 
@@ -81,8 +84,8 @@ public class Case extends Observable {
         return this.etat == State.INONDE;
     }
 
-    public Case[] getVoisins(){
-        return new Case[] {this.haut, this.bas, this.gauche, this.droit};
+    public ArrayList<Case>getVoisins(){
+        return new ArrayList<Case>(Arrays.asList(this.haut, this.bas, this.gauche, this.droit));
     }
 
     public Case getVoisinH(){
@@ -109,6 +112,8 @@ public class Case extends Observable {
     public Joueur getJoueur(){
         return this.joueur;
     }
+
+    public void leveJoueur(){this.joueur = null;}
 
     public boolean contientJoueur(){
         return this.joueur != null;

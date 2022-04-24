@@ -40,10 +40,10 @@ public class ControlleurCase implements MouseListener {
     @Override
     public void mousePressed(MouseEvent e) {
         // TODO Auto-generated method stub
-        if(SwingUtilities.isLeftMouseButton(e)){
-            System.out.print(c.toString());
+
+        if(SwingUtilities.isLeftMouseButton(e) && ile.getActionRest() > 0)
+//            System.out.print(c.toString());
             this.pop.show(e.getComponent(), e.getX(), e.getY());;
-        }
     }
 
     @Override

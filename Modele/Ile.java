@@ -14,7 +14,8 @@ public class Ile extends Observable {
 
     Random rand = new Random();
 
-    private int joueurCourant = 0;
+    private final int nbJoueur = 1;
+    private int joueurCourant;
     private int actionRest;
     private ArrayList<Joueur> joueurs = new ArrayList<>();
 
@@ -31,7 +32,9 @@ public class Ile extends Observable {
         initGrille();
         caseLinking();
         makeStock();
-        initJoueur(4);
+        initJoueur(nbJoueur);
+        this.actionRest = 3;
+        this.joueurCourant = rand.nextInt(nbJoueur);
     }
 
     private void makeStock() {
@@ -121,6 +124,8 @@ public class Ile extends Observable {
     public void movePlayer(Case c){
         boolean t = this.joueurs.get(this.joueurCourant).move(c);
         this.actionRest = t == true ? this.actionRest - 1 : this.actionRest;
+        notifyObservers();
+        System.out.println(this.actionRest);
 //        return t;
     }
 
@@ -129,7 +134,6 @@ public class Ile extends Observable {
         if (t) System.out.println("sec");
         this.actionRest = t ? this.actionRest - 1 : this.actionRest;
         notifyObservers();
-//        return t;
     }
 
     public int getJoueur() {
@@ -137,10 +141,12 @@ public class Ile extends Observable {
     }
 
     public boolean tourSuivant(){
-        this.joueurCourant = this.joueurCourant == 3 ? 0 : this.joueurCourant+1;
+        this.joueurCourant = this.joueurCourant == this.nbJoueur - 1 ? 0 : this.joueurCourant+1;
+        System.out.println("Num de joueur : " + this.joueurCourant);
         this.actionRest = 3;
         this.inondation();
         notifyObservers();
+        this.afficheGrille();
         return true;
     }
 

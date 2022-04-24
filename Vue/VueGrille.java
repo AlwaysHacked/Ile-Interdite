@@ -32,9 +32,9 @@ public class VueGrille extends JPanel implements Observer {
         Dimension dim = new Dimension(TAILLE*ile.getSizeGrille() * 3,
                 TAILLE*ile.getSizeGrille() * 3);
         this.setPreferredSize(dim);
-        for (int i = ile.getSizeGrille() - 1; i >= 0; i--) {
-            for (int j = ile.getSize() - 1; j >= 0; j--) {
-                if (ile.getCase(j, i) != null) {
+        for (int i = 0; i < ile.getSizeGrille(); i++) {
+            for (int j = 0; j < ile.getSizeGrille(); j++) {
+                if (ile.getCase(i, j) != null) {
                     int step = j * 3;
                     ImageIcon temp = new ImageIcon();
                     JLabel object = new JLabel();
@@ -43,7 +43,7 @@ public class VueGrille extends JPanel implements Observer {
                             VueGrille.TAILLE * 2 - 10,
                             VueGrille.TAILLE * 2 - 10);
                     object.setIcon(temp);
-                    ControlleurCase ctrl = new ControlleurCase(this.ile, this.ile.getCase(j, i));
+                    ControlleurCase ctrl = new ControlleurCase(this.ile, this.ile.getCase(i, j));
                     object.addMouseListener(ctrl);
 
                     this.add(object);
@@ -72,17 +72,10 @@ public class VueGrille extends JPanel implements Observer {
      */
     public void paintComponent(Graphics g) {
         super.repaint();
-//        super.paintComponent(g);
-//        System.out.println("dedans");
         int c = -1;
         /** Pour chaque cellule... */
         for(int i = 0; i < ile.getSizeGrille(); i++) {
             for(int j = 0; j < ile.getSizeGrille(); j++) {
-                /**
-                 * ... Appeler une fonction d'affichage auxiliaire.
-                 * On lui fournit les informations de dessin [g] et les
-                 * coordonnées du coin en haut à gauche.
-                 */
                 if(ile.getCase(i,j) != null)
                     paint(g, ile.getCase(i, j), (i-1)*TAILLE, (j-1)*TAILLE, ++c); // commence a c+1 => -1+1 = 0
 
@@ -111,7 +104,7 @@ public class VueGrille extends JPanel implements Observer {
         if(c.contientJoueur()){
             n = "Ressources/player1.png";
             this.newFrame(n, x, y, cnt, g);
-           }
+       }
     }
 
 
