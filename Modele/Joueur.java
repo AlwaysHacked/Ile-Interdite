@@ -56,6 +56,7 @@ public class Joueur {
     }
     public void evacuation(){
         this.evacue = true;
+        this.position.enleveJoueur();
     }
     public void utiliseCle(Item.Type type){
         inventaire.removeIf(cle -> cle instanceof Cle && cle.type == type);

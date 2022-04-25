@@ -19,7 +19,7 @@ public class VueGrille extends JPanel implements Observer {
     /** Les cases sont stockes ici */
     private ArrayList<JLabel> jl = new ArrayList<>();
     /** Définition d'une taille (en pixels) pour l'affichage des cellules. */
-    public final static int TAILLE = 40;
+    public final static int TAILLE = 30;
 
     /** Constructeur. */
     public VueGrille(Ile ile) {

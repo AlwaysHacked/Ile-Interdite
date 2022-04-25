@@ -210,10 +210,13 @@ public class Ile extends Observable {
 
     /** Vérifie si un joueur est arrivé (lui-même ou par chance d'inondation) à l'helico et peut être évacué */
 
-    private void evacuation(){
+    private boolean evacuation(){
         for(Joueur j : this.joueurs)
-            if(!j.estEvacue() && j.evacuable())
+            if (!j.estEvacue() && j.evacuable()){
                 j.evacuation();
+                return true;
+        }
+        return false;
     }
 
 
@@ -254,7 +257,9 @@ public class Ile extends Observable {
         }
     }
     public void tourSuivant(){
+        evacuation();
         pioche();
+
         this.joueurCourant = this.joueurCourant == this.nbJoueur - 1 ? 0 : this.joueurCourant+1;
         if(this.joueurs.get(this.joueurCourant).estEvacue())
             tourSuivant();
